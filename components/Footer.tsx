@@ -7,14 +7,14 @@ import { useRef, useEffect, type CSSProperties } from "react"
 const useIsStaticRenderer = () => false
 
 interface KineticGridProps {
-    background: string
-    dotColor: string
-    lineColor: string
-    trailColor: string
-    spacing: number // grid spacing in px
-    radius: number // cursor attraction radius in px
-    strength: number // 1-10 attraction strength
-    trail: boolean // show cursor trail line
+    background?: string
+    dotColor?: string
+    lineColor?: string
+    trailColor?: string
+    spacing?: number // grid spacing in px
+    radius?: number // cursor attraction radius in px
+    strength?: number // 1-10 attraction strength
+    trail?: boolean // show cursor trail line
     style?: CSSProperties
 }
 
