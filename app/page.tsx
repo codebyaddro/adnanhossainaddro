@@ -8,7 +8,7 @@ const jsonLd = {
   '@type': 'Person',
   name: 'Adnan Hossain Addro',
   url: 'https://adnanhaddro.me',
-  image: 'https://adnanhaddro.me/profile.png',
+  image: 'https://adnanhaddro.me/og-image.png',
   jobTitle: 'Software Engineer',
   description:
     'Software engineer specializing in Next.js, AI agents, SaaS development, and automation.',
