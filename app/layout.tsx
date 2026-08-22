@@ -15,6 +15,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  verification: {
+    google: "qanO3Nf7hHVaF3jjaa0V8riOVFusVTl9QYlsF39eLiE",
+  },
+  
   metadataBase: new URL("https://adnanhaddro.me"),
 
   title: "Adnan Hossain Addro | Software Engineer & AI Developer",
