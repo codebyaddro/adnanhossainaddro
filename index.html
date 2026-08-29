@@ -1,1670 +1,655 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Adnan Hossain Addro | Portfolio</title>
+    <meta charset="UTF-8" />
+
+    <!-- Viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary SEO -->
+    <title>Adnan Hossain Addro | Software Engineer & AI Developer</title>
+    
     <link rel="icon" type="image/png" href="/assets/favicons/favicon.svg" media="(prefers-color-scheme: light)">
     <link rel="icon" type="image/png" href="/assets/favicons/favicon.ico" media="(prefers-color-scheme: dark)">
 
-    <!-- Google Font -->
+    <meta
+        name="description"
+        content="Portfolio of Adnan Hossain Addro — software engineer specializing in Next.js, AI agents, SaaS development, automation, and scalable web applications."
+    />
+
+    <meta
+        name="keywords"
+        content="Adnan Hossain Addro, Software Engineer, Next.js Developer, AI Developer, FDE, SaaS Developer, Portfolio, Bangladesh Developer, Adnan Addro, adnan addro, addro"
+    />
+
+    <meta name="author" content="Adnan Hossain Addro" />
+    <meta name="creator" content="Adnan Hossain Addro" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://adnanhaddro.me/" />
+
+    <!-- Google Search Console Verification -->
+    <meta
+        name="google-site-verification"
+        content="qanO3Nf7hHVaF3jjaa0V8riOVFusVTl9QYlsF39eLiE"
+    />
+
+    <!-- Robots -->
+    <meta name="robots" content="index, follow" />
+
+    <meta
+        name="googlebot"
+        content="index, follow, max-image-preview:large, max-snippet:-1"
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+
+    <meta
+        property="og:url"
+        content="https://adnanhaddro.me/"
+    />
+
+    <meta
+        property="og:title"
+        content="Adnan Hossain Addro | Software Engineer & AI Developer"
+    />
+
+    <meta
+        property="og:description"
+        content="Next.js, AI agents, SaaS products, automation, and scalable software engineering."
+    />
+
+    <meta
+        property="og:site_name"
+        content="Adnan Hossain Addro Portfolio"
+    />
+
+    <meta
+        property="og:image"
+        content="https://adnanhaddro.me/assets/images/og-image.png"
+    />
+
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <meta
+        property="og:image:alt"
+        content="Adnan Hossain Addro Portfolio"
+    />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta
+        name="twitter:title"
+        content="Adnan Hossain Addro | Software Engineer & AI Developer"
+    />
+
+    <meta
+        name="twitter:description"
+        content="Next.js, AI agents, SaaS products, automation, and scalable software engineering."
+    />
+
+    <meta
+        name="twitter:image"
+        content="https://adnanhaddro.me/assets/images/og-image.png"
+    />
+
+    <!-- Favicon -->
+    <link
+        rel="icon"
+        type="image/png"
+        sizes="16x16"
+        href="./assets/favicons/favicon.ico"
+    />
+
+    <link
+        rel="icon"
+        type="image/png"
+        sizes="32x32"
+        href="/assets/favicons/favicon-96x96.png"
+    />
+
+    <link
+        rel="icon"
+        type="image/x-icon"
+        href="/assets/favicons/favicon.ico"
+    />
+
+    <!-- Apple Touch Icon -->
+    <link
+        rel="apple-touch-icon"
+        sizes="180x180"
+        href="/assets/favicons/apple-touch-icon.png"
+    />
+
+    <!-- Person Structured Data -->
+    <script type="application/ld+json">
+        {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "@id": "https://adnanhaddro.me/#person",
+        "name": "Adnan Hossain Addro",
+        "alternateName": "Addro",
+        "url": "https://adnanhaddro.me/",
+        "image": "https://adnanhaddro.me/assets/images/og-image.png",
+        "jobTitle": "Software Engineer",
+        "description": "Software engineer, entrepreneur and founder specializing in Next.js, AI agents, SaaS development, automation, and scalable web applications.",
+        "sameAs": [
+            "https://www.linkedin.com/in/adnan-hossain-addro/",
+            "https://www.facebook.com/addro23",
+            "https://www.instagram.com/adnanh.addro",
+            "https://x.com/addro23",
+            "https://github.com/codebyaddro"
+        ]
+        }
+    </script>
+
+    <!-- =====================================================
+        FONTS
+    ====================================================== -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet"
-    >
 
-    <!-- Locomotive Scroll -->
-    <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.css"
-    >
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <style>
+    <!-- =====================================================
+        LOCOMOTIVE SCROLL
+    ====================================================== -->
 
-        /* =========================================
-           RESET
-        ========================================= */
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: auto;
-        }
-
-        body {
-            background: #f4f4f0;
-            color: #111;
-            font-family: "Inter", sans-serif;
-            overflow-x: hidden;
-            cursor: none;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        img {
-            width: 100%;
-            display: block;
-        }
-
-        ::selection {
-            background: #174cff;
-            color: #fff;
-        }
-
-
-        /* =========================================
-           VARIABLES
-        ========================================= */
-
-        :root {
-            --white: #f4f4f0;
-            --black: #111111;
-            --gray: #b9b9b4;
-            --dark-gray: #555555;
-            --blue: #174cff;
-            --red: #ff3b30;
-            --yellow: #ffd83d;
-        }
-
-
-        /* =========================================
-           CUSTOM CURSOR
-        ========================================= */
-
-        .cursor {
-            position: fixed;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: var(--blue);
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            mix-blend-mode: difference;
-        }
-
-
-        /* =========================================
-           GLOBAL
-        ========================================= */
-
-        .page {
-            width: 100%;
-            overflow: hidden;
-        }
-
-        .container {
-            width: min(92%, 1400px);
-            margin: auto;
-        }
-
-        .mono {
-            font-family: "DM Mono", monospace;
-        }
-
-        .eyebrow {
-            font-family: "DM Mono", monospace;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: .12em;
-        }
-
-
-        /* =========================================
-           NAV
-        ========================================= */
-
-        .nav {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 28px 4%;
-            z-index: 100;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-name {
-            font-size: 18px;
-            font-weight: 800;
-            letter-spacing: -0.04em;
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-        }
-
-        .nav-status {
-            font-family: "DM Mono", monospace;
-            font-size: 11px;
-            text-transform: uppercase;
-        }
-
-        .resume-btn {
-            padding: 12px 18px;
-            border: 1px solid var(--black);
-            background: transparent;
-            font-family: "DM Mono", monospace;
-            font-size: 11px;
-            text-transform: uppercase;
-            transition: .3s ease;
-            cursor: pointer;
-        }
-
-        .resume-btn:hover {
-            background: var(--black);
-            color: var(--white);
-        }
-
-
-        /* =========================================
-           HERO
-        ========================================= */
-
-        .hero {
-            min-height: 100vh;
-            position: relative;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 3;
-            padding-top: 80px;
-        }
-
-        .hero-small {
-            margin-bottom: 25px;
-        }
-
-        .hero-title {
-            font-size: clamp(65px, 12vw, 190px);
-            line-height: .82;
-            letter-spacing: -.09em;
-            font-weight: 900;
-            text-transform: uppercase;
-        }
-
-        .hero-title span {
-            display: block;
-        }
-
-        .hero-title .blue {
-            color: var(--blue);
-        }
-
-        .hero-title .red {
-            color: var(--red);
-        }
-
-        .hero-title .yellow {
-            color: var(--yellow);
-            -webkit-text-stroke: 2px var(--black);
-        }
-
-        .hero-description {
-            max-width: 500px;
-            margin-top: 50px;
-            font-size: 18px;
-            line-height: 1.5;
-        }
-
-        .hero-bottom {
-            position: absolute;
-            bottom: 35px;
-            left: 4%;
-            right: 4%;
-            display: flex;
-            justify-content: space-between;
-            align-items: end;
-            z-index: 5;
-        }
-
-        .scroll-label {
-            font-family: "DM Mono", monospace;
-            font-size: 11px;
-            text-transform: uppercase;
-        }
-
-        .hero-number {
-            font-family: "DM Mono", monospace;
-            font-size: 11px;
-        }
-
-
-        /* =========================================
-           FLOATING SHAPES
-        ========================================= */
-
-        .shape {
-            position: absolute;
-            z-index: 1;
-        }
-
-        .shape-one {
-            width: 230px;
-            height: 230px;
-            background: var(--blue);
-            right: 9%;
-            top: 18%;
-            transform: rotate(14deg);
-        }
-
-        .shape-two {
-            width: 130px;
-            height: 130px;
-            background: var(--red);
-            right: 25%;
-            bottom: 15%;
-            border-radius: 50%;
-        }
-
-        .shape-three {
-            width: 160px;
-            height: 160px;
-            background: var(--yellow);
-            left: 4%;
-            top: 15%;
-            border: 2px solid var(--black);
-            transform: rotate(45deg);
-        }
-
-
-        /* =========================================
-           ABOUT
-        ========================================= */
-
-        .about {
-            padding: 180px 0;
-            background: var(--black);
-            color: var(--white);
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 80px;
-        }
-
-        .about-label {
-            color: var(--yellow);
-        }
-
-        .about-text {
-            font-size: clamp(35px, 5vw, 75px);
-            line-height: 1;
-            letter-spacing: -.06em;
-            font-weight: 700;
-        }
-
-        .about-text .highlight {
-            color: var(--blue);
-        }
-
-        .about-text .red-text {
-            color: var(--red);
-        }
-
-
-        /* =========================================
-           SKILLS
-        ========================================= */
-
-        .skills {
-            padding: 150px 0;
-            background: var(--yellow);
-        }
-
-        .section-heading {
-            display: flex;
-            justify-content: space-between;
-            align-items: end;
-            margin-bottom: 80px;
-        }
-
-        .section-heading h2 {
-            font-size: clamp(60px, 10vw, 150px);
-            line-height: .8;
-            letter-spacing: -.08em;
-            text-transform: uppercase;
-        }
-
-        .skills-list {
-            border-top: 2px solid var(--black);
-        }
-
-        .skill {
-            min-height: 100px;
-            border-bottom: 2px solid var(--black);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px 0;
-            transition: .4s ease;
-        }
-
-        .skill-name {
-            font-size: clamp(30px, 5vw, 70px);
-            font-weight: 800;
-            letter-spacing: -.06em;
-        }
-
-        .skill-number {
-            font-family: "DM Mono", monospace;
-            font-size: 12px;
-        }
-
-        .skill:hover {
-            padding-left: 30px;
-            padding-right: 30px;
-            background: var(--blue);
-            color: var(--white);
-        }
-
-
-        /* =========================================
-           PROJECTS
-        ========================================= */
-
-        .projects {
-            padding: 160px 0;
-            background: var(--white);
-        }
-
-        .projects-heading {
-            margin-bottom: 100px;
-        }
-
-        .projects-heading h2 {
-            font-size: clamp(65px, 12vw, 180px);
-            line-height: .8;
-            letter-spacing: -.09em;
-            text-transform: uppercase;
-        }
-
-        .project {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 80px;
-            padding: 80px 0;
-            border-top: 1px solid #aaa;
-        }
-
-        .project-info {
-            position: relative;
-        }
-
-        .project-number {
-            font-family: "DM Mono", monospace;
-            margin-bottom: 20px;
-        }
-
-        .project-title {
-            font-size: clamp(40px, 5vw, 75px);
-            line-height: .9;
-            letter-spacing: -.07em;
-            font-weight: 800;
-        }
-
-        .project-description {
-            margin-top: 30px;
-            max-width: 380px;
-            line-height: 1.6;
-            color: var(--dark-gray);
-        }
-
-        .project-link {
-            display: inline-block;
-            margin-top: 35px;
-            font-family: "DM Mono", monospace;
-            font-size: 12px;
-            text-transform: uppercase;
-            border-bottom: 1px solid var(--black);
-            padding-bottom: 5px;
-        }
-
-        .project-image {
-            overflow: hidden;
-            aspect-ratio: 16 / 10;
-            background: var(--gray);
-        }
-
-        .project-image img {
-            height: 100%;
-            object-fit: cover;
-            transition: transform 1s cubic-bezier(.16,1,.3,1);
-        }
-
-        .project:hover .project-image img {
-            transform: scale(1.07);
-        }
-
-
-        /* =========================================
-           PROJECT IMAGE BOARD
-        ========================================= */
-
-        .image-board {
-            padding: 120px 4%;
-            background: #deded9;
-        }
-
-        .board-title {
-            font-size: clamp(60px, 11vw, 160px);
-            font-weight: 900;
-            letter-spacing: -.09em;
-            line-height: .8;
-            text-transform: uppercase;
-            margin-bottom: 100px;
-        }
-
-        .board {
-            position: relative;
-            min-height: 850px;
-        }
-
-        .board-image {
-            position: absolute;
-            overflow: hidden;
-        }
-
-        .board-image img {
-            height: 100%;
-            object-fit: cover;
-            transition: transform .8s ease;
-        }
-
-        .board-image:hover img {
-            transform: scale(1.08);
-        }
-
-        .board-image:nth-child(1) {
-            width: 36%;
-            height: 350px;
-            left: 3%;
-            top: 50px;
-            transform: rotate(-4deg);
-        }
-
-        .board-image:nth-child(2) {
-            width: 30%;
-            height: 280px;
-            right: 6%;
-            top: 0;
-            transform: rotate(5deg);
-        }
-
-        .board-image:nth-child(3) {
-            width: 27%;
-            height: 350px;
-            left: 35%;
-            top: 280px;
-            transform: rotate(3deg);
-        }
-
-        .board-image:nth-child(4) {
-            width: 30%;
-            height: 300px;
-            left: 8%;
-            top: 550px;
-            transform: rotate(5deg);
-        }
-
-        .board-image:nth-child(5) {
-            width: 27%;
-            height: 320px;
-            right: 8%;
-            top: 470px;
-            transform: rotate(-5deg);
-        }
-
-
-        /* =========================================
-           CONTACT
-        ========================================= */
-
-        .contact {
-            min-height: 100vh;
-            background: var(--blue);
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            padding: 100px 4%;
-        }
-
-        .contact-inner {
-            width: 100%;
-        }
-
-        .contact-top {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 60px;
-        }
-
-        .contact-label {
-            color: var(--yellow);
-        }
-
-        .contact-email {
-            font-family: "DM Mono", monospace;
-            font-size: 12px;
-        }
-
-        .contact-title {
-            font-size: clamp(65px, 13vw, 200px);
-            line-height: .75;
-            letter-spacing: -.1em;
-            font-weight: 900;
-            text-transform: uppercase;
-        }
-
-        .contact-title span {
-            display: block;
-        }
-
-        .contact-title .red-word {
-            color: var(--red);
-        }
-
-        .contact-title .yellow-word {
-            color: var(--yellow);
-            -webkit-text-stroke: 2px var(--black);
-        }
-
-
-        /* =========================================
-           SOCIAL LINKS
-        ========================================= */
-
-        .socials {
-            margin-top: 100px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .social-link {
-            font-size: clamp(35px, 6vw, 90px);
-            font-weight: 800;
-            line-height: .95;
-            letter-spacing: -.06em;
-            position: relative;
-            transition: .4s ease;
-        }
-
-        .social-link::after {
-            content: "";
-            position: absolute;
-            height: 5px;
-            background: currentColor;
-            left: 0;
-            right: 100%;
-            top: 50%;
-            transition: right .5s cubic-bezier(.16,1,.3,1);
-        }
-
-        .social-link:hover::after {
-            right: 0;
-        }
-
-        .linkedin:hover {
-            color: #0a66c2;
-        }
-
-        .instagram:hover {
-            color: var(--yellow);
-        }
-
-        .twitter:hover {
-            color: var(--red);
-        }
-
-
-        /* =========================================
-           MOBILE
-        ========================================= */
-
-        @media (max-width: 800px) {
-
-            .nav {
-                padding: 22px 5%;
-            }
-
-            .nav-status {
-                display: none;
-            }
-
-            .hero {
-                min-height: 90vh;
-            }
-
-            .shape-one {
-                width: 130px;
-                height: 130px;
-                right: 3%;
-                top: 25%;
-            }
-
-            .shape-two {
-                width: 80px;
-                height: 80px;
-                right: 15%;
-            }
-
-            .shape-three {
-                width: 80px;
-                height: 80px;
-            }
-
-            .hero-description {
-                font-size: 15px;
-                max-width: 320px;
-            }
-
-            .about,
-            .skills,
-            .projects {
-                padding: 100px 0;
-            }
-
-            .about-grid {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .section-heading {
-                display: block;
-            }
-
-            .section-heading .eyebrow {
-                margin-bottom: 30px;
-            }
-
-            .project {
-                grid-template-columns: 1fr;
-                gap: 40px;
-                padding: 60px 0;
-            }
-
-            .board {
-                min-height: 800px;
-            }
-
-            .board-image:nth-child(1) {
-                width: 60%;
-                height: 230px;
-                left: 0;
-            }
-
-            .board-image:nth-child(2) {
-                width: 55%;
-                height: 200px;
-                right: 0;
-            }
-
-            .board-image:nth-child(3) {
-                width: 55%;
-                height: 230px;
-                left: 25%;
-                top: 260px;
-            }
-
-            .board-image:nth-child(4) {
-                width: 60%;
-                height: 210px;
-                left: 0;
-                top: 510px;
-            }
-
-            .board-image:nth-child(5) {
-                width: 55%;
-                height: 230px;
-                right: 0;
-                top: 620px;
-            }
-
-            .contact {
-                min-height: 100vh;
-            }
-
-            .contact-top {
-                display: block;
-            }
-
-            .contact-email {
-                margin-top: 20px;
-            }
-
-            .socials {
-                margin-top: 70px;
-            }
-
-            .social-link {
-                font-size: 42px;
-            }
-
-            .cursor {
-                display: none;
-            }
-
-            body {
-                cursor: auto;
-            }
-        }
-
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.css">
+    <link rel="stylesheet" href="./style.css">
 </head>
-
 
 <body>
 
-    <div class="cursor"></div>
+    <!-- =====================================================
+        CUSTOM CURSOR
+    ====================================================== -->
 
-    <main data-scroll-container class="page">
+    <div class="cursor">
+        <span class="cursor-label">VIEW →</span>
+    </div>
 
+    <!-- =====================================================
+        PAGE
+    ====================================================== -->
 
-        <!-- =====================================
-             NAVIGATION
-        ====================================== -->
+    <main class="page" data-scroll-container>
+
+        <!-- =================================================
+            NAVIGATION
+        ================================================== -->
 
         <nav class="nav">
-
-            <a href="#" class="nav-name">
-                ADDRO.
-            </a>
-
+            <a href="/" class="nav-name">ADDRO.</a>
             <div class="nav-right">
-
-                <span class="nav-status">
+                <div class="nav-status">
+                    <span class="status-dot"></span>
                     Available for work
-                </span>
-
-                <a
-                    href="#"
-                    class="resume-btn"
-                    download
-                >
+                </div>
+                <a href="/assets/addro-resume.pdf" class="resume-btn magnetic" download data-cursor="DOWNLOAD">
                     Download Resume
                 </a>
-
             </div>
-
         </nav>
 
-
-        <!-- =====================================
-             HERO
-        ====================================== -->
+        <!-- =================================================
+            HERO
+        ================================================== -->
 
         <section class="hero">
-
-            <div class="shape shape-one"></div>
-            <div class="shape shape-two"></div>
-            <div class="shape shape-three"></div>
+            <div class="hero-shape shape-blue"></div>
+            <div class="hero-shape shape-red"></div>
+            <div class="hero-shape shape-yellow"></div>
+            <div class="hero-shape shape-cross"></div>
 
             <div class="container hero-content">
-
-                <div class="hero-small eyebrow">
-                    Creative Developer / Designer
+                <div class="hero-kicker eyebrow">
+                    Software Engineer / Creative Developer
                 </div>
 
                 <h1 class="hero-title">
-
-                    <span class="hero-line">
-                        MAKE
-                    </span>
-
-                    <span class="hero-line blue">
-                        DIGITAL
-                    </span>
-
-                    <span class="hero-line red">
-                        THINGS
-                    </span>
-
-                    <span class="hero-line yellow">
-                        FUN.
-                    </span>
-
+                    <span class="hero-line">MAKE</span>
+                    <span class="hero-line blue">DIGITAL</span>
+                    <span class="hero-line red">THINGS</span>
+                    <span class="hero-line yellow">FUN.</span>
                 </h1>
 
                 <p class="hero-description">
-                    I design and build digital experiences, websites,
-                    applications and products that feel as good as
-                    they work.
+                    I design and build <strong>digital products</strong>,
+                    websites, applications and experiences
+                    that are useful, expressive and impossible
+                    to forget.
                 </p>
-
             </div>
 
-            <div class="hero-bottom">
-
-                <div class="scroll-label">
-                    ↓ Scroll to explore
+            <div class="hero-footer">
+                <div class="hero-scroll">
+                    <span class="scroll-line"></span>
+                    Scroll to explore
                 </div>
-
-                <div class="hero-number">
-                    01 / 06
-                </div>
-
+                <div class="hero-index">01 / 07</div>
             </div>
-
         </section>
 
+        <!-- =================================================
+            MARQUEE
+        ================================================== -->
 
-        <!-- =====================================
-             ABOUT
-        ====================================== -->
+        <section class="marquee">
+            <div class="marquee-track">
+
+                <div class="marquee-item">
+                    <span>CODE</span>
+                    <span class="marquee-dot"></span>
+                    <span>DESIGN</span>
+                    <span class="marquee-dot"></span>
+                    <span>BUILD</span>
+                    <span class="marquee-dot"></span>
+                    <span>REPEAT</span>
+                    <span class="marquee-dot"></span>
+                </div>
+
+                <div class="marquee-item">
+                    <span>CODE</span>
+                    <span class="marquee-dot"></span>
+                    <span>DESIGN</span>
+                    <span class="marquee-dot"></span>
+                    <span>BUILD</span>
+                    <span class="marquee-dot"></span>
+                    <span>REPEAT</span>
+                    <span class="marquee-dot"></span>
+                </div>
+
+                <div class="marquee-item">
+                    <span>CODE</span>
+                    <span class="marquee-dot"></span>
+                    <span>DESIGN</span>
+                    <span class="marquee-dot"></span>
+                    <span>BUILD</span>
+                    <span class="marquee-dot"></span>
+                    <span>REPEAT</span>
+                    <span class="marquee-dot"></span>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- =================================================
+            ABOUT
+        ================================================== -->
 
         <section class="about">
-
             <div class="container">
-
                 <div class="about-grid">
-
                     <div>
-                        <span class="eyebrow about-label">
-                            02 — About
-                        </span>
+                        <span class="eyebrow about-label">02 — About me</span>
                     </div>
-
                     <div>
-
-                        <p class="about-text">
-
+                        <div class="about-statement">
                             I'm a
-                            <span class="highlight">
-                                software engineer
-                            </span>
-                            who likes turning complicated ideas into
-                            simple, useful and
-                            <span class="red-text">
-                                memorable
-                            </span>
+                            <span class="blue">software engineer</span>
+                            who loves turning complicated ideas
+                            into <span class="red">simple</span>
+                            and <span class="outline">memorable</span>
                             digital experiences.
-
-                        </p>
-
+                        </div>
+                        <div class="about-note">
+                            <p class="about-note-text">
+                                From interfaces and websites to
+                                SaaS platforms and experimental
+                                digital products, I like working
+                                where engineering meets creativity.
+                            </p>
+                            <div class="about-big-number">02</div>
+                        </div>
                     </div>
-
                 </div>
-
             </div>
-
         </section>
 
-
-        <!-- =====================================
-             SKILLS
-        ====================================== -->
+        <!-- =================================================
+            SKILLS
+        ================================================== -->
 
         <section class="skills">
-
             <div class="container">
-
-                <div class="section-heading">
-
-                    <span class="eyebrow">
-                        03 — What I do
-                    </span>
-
-                    <h2>
-                        Skills
-                    </h2>
-
+                <div class="section-head">
+                    <span class="eyebrow">03 — Things I make</span>
+                    <h2>Skills</h2>
                 </div>
-
-
                 <div class="skills-list">
-
-                    <div class="skill">
-                        <span class="skill-name">
-                            UI / UX Design
-                        </span>
-
-                        <span class="skill-number">
-                            01
-                        </span>
+                    <div class="skill" data-cursor="EXPLORE">
+                        <span class="skill-name">UI / UX Design</span>
+                        <span class="skill-number">01</span>
                     </div>
-
-                    <div class="skill">
-                        <span class="skill-name">
-                            Web Development
-                        </span>
-
-                        <span class="skill-number">
-                            02
-                        </span>
+                    <div class="skill" data-cursor="EXPLORE">
+                        <span class="skill-name">Web Development</span>
+                        <span class="skill-number">02</span>
                     </div>
-
-                    <div class="skill">
-                        <span class="skill-name">
-                            React / Next.js
-                        </span>
-
-                        <span class="skill-number">
-                            03
-                        </span>
+                    <div class="skill" data-cursor="EXPLORE">
+                        <span class="skill-name">React / Next.js</span>
+                        <span class="skill-number">03</span>
                     </div>
-
-                    <div class="skill">
-                        <span class="skill-name">
-                            Node / Backend
-                        </span>
-
-                        <span class="skill-number">
-                            04
-                        </span>
+                    <div class="skill" data-cursor="EXPLORE">
+                        <span class="skill-name">Node / Backend</span>
+                        <span class="skill-number">04</span>
                     </div>
-
-                    <div class="skill">
-                        <span class="skill-name">
-                            SaaS Development
-                        </span>
-
-                        <span class="skill-number">
-                            05
-                        </span>
+                    <div class="skill" data-cursor="EXPLORE">
+                        <span class="skill-name">SaaS Development</span>
+                        <span class="skill-number">05</span>
                     </div>
-
-                    <div class="skill">
-                        <span class="skill-name">
-                            Creative Coding
-                        </span>
-
-                        <span class="skill-number">
-                            06
-                        </span>
+                    <div class="skill" data-cursor="EXPLORE">
+                        <span class="skill-name">AI / Automation</span>
+                        <span class="skill-number">06</span>
                     </div>
-
                 </div>
-
             </div>
-
         </section>
 
+        <!-- =================================================
+            GIANT STATEMENT
+        ================================================== -->
 
-        <!-- =====================================
-             PROJECTS
-        ====================================== -->
+        <section class="statement">
+            <div class="statement-word" data-speed="0.8">CODE.</div>
+            <div class="statement-word" data-speed="1.2">DESIGN.</div>
+            <div class="statement-word" data-speed="0.7">BUILD.</div>
+            <div class="statement-word" data-speed="1.3">BREAK.</div>
+            <div class="statement-word" data-speed="0.9">FIX.</div>
+            <div class="statement-word" data-speed="1.15">REPEAT.</div>
+        </section>
+
+        <!-- =================================================
+            PROJECTS
+        ================================================== -->
 
         <section class="projects">
 
-            <div class="container">
-
-                <div class="projects-heading">
-
-                    <span class="eyebrow">
-                        04 — Selected work
-                    </span>
-
-                    <h2>
-                        Projects
-                    </h2>
-
+            <!-- PROJECT INTRO -->
+            <div class="projects-intro">
+                <div>
+                    <span class="eyebrow">04 — Selected work</span>
                 </div>
-
-
-                <!-- PROJECT 01 -->
-
-                <article class="project">
-
-                    <div class="project-info">
-
-                        <div class="project-number">
-                            001 / 004
-                        </div>
-
-                        <h3 class="project-title">
-                            SaaS
-                            Platform
-                        </h3>
-
-                        <p class="project-description">
-                            A scalable SaaS platform designed around
-                            real-time collaboration, dashboards,
-                            automation and modern product workflows.
-                        </p>
-
-                        <a href="#" class="project-link">
-                            View project →
-                        </a>
-
-                    </div>
-
-                    <div class="project-image">
-
-                        <img
-                            src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=1600&q=80"
-                            alt="SaaS project"
-                            loading="lazy"
-                        >
-
-                    </div>
-
-                </article>
-
-
-                <!-- PROJECT 02 -->
-
-                <article class="project">
-
-                    <div class="project-info">
-
-                        <div class="project-number">
-                            002 / 004
-                        </div>
-
-                        <h3 class="project-title">
-                            Digital
-                            Product
-                        </h3>
-
-                        <p class="project-description">
-                            A bold product experience combining clean
-                            interface design with a powerful technical
-                            architecture.
-                        </p>
-
-                        <a href="#" class="project-link">
-                            View project →
-                        </a>
-
-                    </div>
-
-                    <div class="project-image">
-
-                        <img
-                            src="https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=1600&q=80"
-                            alt="Digital product"
-                            loading="lazy"
-                        >
-
-                    </div>
-
-                </article>
-
-
-                <!-- PROJECT 03 -->
-
-                <article class="project">
-
-                    <div class="project-info">
-
-                        <div class="project-number">
-                            003 / 004
-                        </div>
-
-                        <h3 class="project-title">
-                            Creative
-                            Website
-                        </h3>
-
-                        <p class="project-description">
-                            An experimental website focused on motion,
-                            typography, storytelling and interaction.
-                        </p>
-
-                        <a href="#" class="project-link">
-                            View project →
-                        </a>
-
-                    </div>
-
-                    <div class="project-image">
-
-                        <img
-                            src="https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1600&q=80"
-                            alt="Creative website"
-                            loading="lazy"
-                        >
-
-                    </div>
-
-                </article>
-
-
-                <!-- PROJECT 04 -->
-
-                <article class="project">
-
-                    <div class="project-info">
-
-                        <div class="project-number">
-                            004 / 004
-                        </div>
-
-                        <h3 class="project-title">
-                            Mobile
-                            Experience
-                        </h3>
-
-                        <p class="project-description">
-                            A mobile-first digital experience created
-                            with simplicity, accessibility and speed
-                            in mind.
-                        </p>
-
-                        <a href="#" class="project-link">
-                            View project →
-                        </a>
-
-                    </div>
-
-                    <div class="project-image">
-
-                        <img
-                            src="https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=1600&q=80"
-                            alt="Mobile application"
-                            loading="lazy"
-                        >
-
-                    </div>
-
-                </article>
-
+                <h2>
+                    Selected
+                    <br>
+                    <span>Projects.</span>
+                </h2>
+                <div class="projects-intro-bottom">
+                    <p class="projects-intro-description">
+                        A collection of products, interfaces,
+                        websites and experiments I've designed
+                        and built.
+                    </p>
+                    <div class="project-count">04</div>
+                </div>
             </div>
 
+            <!-- HORIZONTAL PROJECTS -->
+            <div class="horizontal-projects">
+                <div class="projects-track">
+
+                    <!-- PROJECT 01 -->
+                    <article class="project-card" data-cursor="VIEW">
+                        <div class="project-sticker">
+                            MADE WITH<br>
+                            CODE + CHAOS
+                        </div>
+                        <div class="project-image">
+                            <img
+                                src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=1800&q=85"
+                                alt="SaaS platform project dashboard interface"
+                                loading="lazy"
+                            >
+                        </div>
+                        <div class="project-meta">
+                            <div>
+                                <h3 class="project-title">
+                                    SaaS<br>
+                                    Platform
+                                </h3>
+                                <a href="#" class="project-link">View project →</a>
+                            </div>
+                            <span class="project-type">Product / SaaS</span>
+                        </div>
+                    </article>
+
+                    <!-- PROJECT 02 -->
+                    <article class="project-card" data-cursor="VIEW">
+                        <div class="project-sticker">
+                            100%<br>
+                            REAL CODE
+                        </div>
+                        <div class="project-image">
+                            <img
+                                src="https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=1800&q=85"
+                                alt="Digital product design showing UI components"
+                                loading="lazy"
+                            >
+                        </div>
+                        <div class="project-meta">
+                            <div>
+                                <h3 class="project-title">
+                                    Digital<br>
+                                    Product
+                                </h3>
+                                <a href="#" class="project-link">View project →</a>
+                            </div>
+                            <span class="project-type">UI / UX</span>
+                        </div>
+                    </article>
+
+                    <!-- PROJECT 03 -->
+                    <article class="project-card" data-cursor="VIEW">
+                        <div class="project-sticker">
+                            PROBABLY<br>
+                            FIXED AT 3AM
+                        </div>
+                        <div class="project-image">
+                            <img
+                                src="https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1800&q=85"
+                                alt="Creative website design with colorful elements"
+                                loading="lazy"
+                            >
+                        </div>
+                        <div class="project-meta">
+                            <div>
+                                <h3 class="project-title">
+                                    Creative<br>
+                                    Website
+                                </h3>
+                                <a href="#" class="project-link">View project →</a>
+                            </div>
+                            <span class="project-type">Web / Motion</span>
+                        </div>
+                    </article>
+
+                    <!-- PROJECT 04 -->
+                    <article class="project-card" data-cursor="VIEW">
+                        <div class="project-sticker">
+                            NO TEMPLATE<br>
+                            USED
+                        </div>
+                        <div class="project-image">
+                            <img
+                                src="https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=1800&q=85"
+                                alt="Mobile app interface showing user experience"
+                                loading="lazy"
+                            >
+                        </div>
+                        <div class="project-meta">
+                            <div>
+                                <h3 class="project-title">
+                                    Mobile<br>
+                                    Experience
+                                </h3>
+                                <a href="#" class="project-link">View project →</a>
+                            </div>
+                            <span class="project-type">Mobile / App</span>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
         </section>
 
+        <!-- =================================================
+            VISUAL PLAYGROUND
+        ================================================== -->
 
-        <!-- =====================================
-             PROJECT IMAGE BOARD
-        ====================================== -->
-
-        <section class="image-board">
-
-            <div class="board-title">
-                Visual<br>
-                Playground
+        <section class="board-section">
+            <div class="board-heading">
+                <span class="eyebrow">05 — Visual Playground</span>
+                <h2>
+                    Messy.<br>
+                    <span>On purpose.</span>
+                </h2>
+                <p class="board-instruction">Drag everything. Break the layout.</p>
             </div>
 
             <div class="board">
-
-                <div class="board-image">
-
+                <div class="board-card">
                     <img
-                        src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1000&q=80"
-                        alt=""
+                        src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1000&q=85"
+                        alt="Abstract visual design board element"
                         loading="lazy"
                     >
-
                 </div>
-
-                <div class="board-image">
-
+                <div class="board-card">
                     <img
-                        src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=1000&q=80"
-                        alt=""
+                        src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=1000&q=85"
+                        alt="Creative visual playground element"
                         loading="lazy"
                     >
-
                 </div>
-
-                <div class="board-image">
-
+                <div class="board-card">
                     <img
-                        src="https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=1000&q=80"
-                        alt=""
+                        src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1000&q=85"
+                        alt="Visual design inspiration board"
                         loading="lazy"
                     >
-
                 </div>
-
-                <div class="board-image">
-
+                <div class="board-card">
                     <img
-                        src="https://images.unsplash.com/photo-1545235617-9465d2a55698?auto=format&fit=crop&w=1000&q=80"
-                        alt=""
+                        src="https://images.unsplash.com/photo-1545235617-9465d2a55698?auto=format&fit=crop&w=1000&q=85"
+                        alt="Creative visual element for playground"
                         loading="lazy"
                     >
-
                 </div>
-
-                <div class="board-image">
-
+                <div class="board-card">
                     <img
-                        src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1000&q=80"
-                        alt=""
+                        src="https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=1000&q=85"
+                        alt="Visual design composition"
                         loading="lazy"
                     >
-
                 </div>
 
+                <div class="board-sticker one">DRAG ME →</div>
+                <div class="board-sticker two">NO GRID.<br>NO RULES.</div>
             </div>
-
         </section>
 
+        <!-- =================================================
+            PHILOSOPHY
+        ================================================== -->
 
-        <!-- =====================================
-             CONTACT
-        ====================================== -->
+        <section class="philosophy">
+            <div class="philosophy-label eyebrow">06 — Philosophy</div>
+            <div class="philosophy-text">
+                <span>SIMPLE</span>
+                <br>
+                <span>IS</span>
+                <br>
+                <span>HARD</span>
+                <br>
+                <span>WORK.</span>
+            </div>
+        </section>
 
-        <section class="contact" id="contact">
+        <!-- =================================================
+            CONTACT
+        ================================================== -->
+
+        <section class="contact">
+            <div class="contact-circle"></div>
+            <div class="contact-cross"></div>
 
             <div class="contact-inner">
-
                 <div class="contact-top">
-
-                    <span class="eyebrow contact-label">
-                        06 — Let's talk
-                    </span>
-
-                    <span class="contact-email">
-                        hello@yourdomain.com
-                    </span>
-
+                    <span class="eyebrow contact-label">07 — Let's make something</span>
                 </div>
-
 
                 <h2 class="contact-title">
-
-                    <span class="fade-up">
-                        HAVE
-                    </span>
-
-                    <span class="red-word fade-up">
-                        A GOOD
-                    </span>
-
-                    <span class="yellow-word fade-up">
-                        IDEA?
-                    </span>
-
+                    <span>HAVE</span>
+                    <span class="red">A GOOD</span>
+                    <span class="yellow">IDEA?</span>
                 </h2>
 
+                <div class="contact-bottom">
+                    <div class="socials">
+                        <a
+                            href="https://www.linkedin.com/in/adnan-hossain-addro"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="social-link linkedin"
+                            data-cursor="OPEN"
+                        >
+                            LinkedIn ↗
+                        </a>
+                        <a
+                            href="https://www.instagram.com/adnanh.addro"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="social-link instagram"
+                            data-cursor="OPEN"
+                        >
+                            Instagram ↗
+                        </a>
+                        <a
+                            href="https://x.com/addro23"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="social-link x"
+                            data-cursor="OPEN"
+                        >
+                            X / Twitter ↗
+                        </a>
+                    </div>
 
-                <div class="socials">
-
-                    <a
-                        href="https://linkedin.com/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="social-link linkedin fade-up"
-                    >
-                        LinkedIn ↗
-                    </a>
-
-                    <a
-                        href="https://instagram.com/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="social-link instagram fade-up"
-                    >
-                        Instagram ↗
-                    </a>
-
-                    <a
-                        href="https://x.com/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="social-link twitter fade-up"
-                    >
-                        X / Twitter ↗
-                    </a>
-
+                    <p class="contact-copy">
+                        Got a product idea?
+                        Need a website?
+                        Building something weird?
+                        <br><br>
+                        Let's turn it into something
+                        people actually want to use.
+                        <br><br>
+                        Created with lots of fun and coffee...
+                    </p>
                 </div>
-
             </div>
-
         </section>
 
     </main>
 
-
-    <!-- =========================================
-         LOCOMOTIVE SCROLL
-    ========================================== -->
+    <!-- =====================================================
+        LIBRARIES
+    ====================================================== -->
 
     <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
-
-
-    <!-- =========================================
-         GSAP
-    ========================================== -->
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
-
-    <script>
-
-        /* =========================================
-           LOCOMOTIVE
-        ========================================== */
-
-        gsap.registerPlugin(ScrollTrigger);
-
-        const scrollContainer =
-            document.querySelector("[data-scroll-container]");
-
-        const locoScroll =
-            new LocomotiveScroll({
-                el: scrollContainer,
-                smooth: true,
-                lerp: 0.08
-            });
-
-
-        locoScroll.on("scroll", ScrollTrigger.update);
-
-
-        ScrollTrigger.scrollerProxy(
-            scrollContainer,
-            {
-                scrollTop(value) {
-
-                    return arguments.length
-                        ? locoScroll.scrollTo(value, {
-                            duration: 0,
-                            disableLerp: true
-                        })
-                        : locoScroll.scroll.instance.scroll.y;
-
-                },
-
-                scrollLeft() {
-                    return 0;
-                },
-
-                getBoundingClientRect() {
-
-                    return {
-                        top: 0,
-                        left: 0,
-                        width: window.innerWidth,
-                        height: window.innerHeight
-                    };
-
-                },
-
-                pinType:
-                    scrollContainer.style.transform
-                        ? "transform"
-                        : "fixed"
-            }
-        );
-
-
-        ScrollTrigger.addEventListener(
-            "refresh",
-            () => locoScroll.update()
-        );
-
-        ScrollTrigger.refresh();
-
-
-        /* =========================================
-           CUSTOM CURSOR
-        ========================================== */
-
-        const cursor =
-            document.querySelector(".cursor");
-
-        window.addEventListener("mousemove", (e) => {
-
-            gsap.to(cursor, {
-                x: e.clientX,
-                y: e.clientY,
-                duration: .2,
-                ease: "power2.out"
-            });
-
-        });
-
-
-        /* =========================================
-           HERO ANIMATION
-        ========================================== */
-
-        const heroTimeline = gsap.timeline();
-
-        heroTimeline
-            .from(".nav", {
-                y: -40,
-                opacity: 0,
-                duration: 1
-            })
-            .from(".hero-small", {
-                y: 30,
-                opacity: 0,
-                duration: .6
-            }, "-=.5")
-            .from(".hero-line", {
-                y: 150,
-                opacity: 0,
-                stagger: .12,
-                duration: 1,
-                ease: "power4.out"
-            }, "-=.3")
-            .from(".hero-description", {
-                y: 30,
-                opacity: 0,
-                duration: .8
-            }, "-=.5");
-
-
-        /* =========================================
-           FLOATING SHAPES
-        ========================================== */
-
-        gsap.to(".shape-one", {
-            y: 100,
-            rotation: 40,
-            duration: 4,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut"
-        });
-
-        gsap.to(".shape-two", {
-            x: -80,
-            y: -50,
-            duration: 3,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut"
-        });
-
-        gsap.to(".shape-three", {
-            rotation: 130,
-            duration: 6,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut"
-        });
-
-
-        /* =========================================
-           ABOUT ANIMATION
-        ========================================== */
-
-        gsap.from(".about-text", {
-
-            scrollTrigger: {
-                trigger: ".about",
-                scroller: scrollContainer,
-                start: "top 75%"
-            },
-
-            y: 100,
-            opacity: 0,
-            duration: 1.2,
-            ease: "power4.out"
-
-        });
-
-
-        /* =========================================
-           SKILLS
-        ========================================== */
-
-        gsap.from(".skill", {
-
-            scrollTrigger: {
-                trigger: ".skills",
-                scroller: scrollContainer,
-                start: "top 70%"
-            },
-
-            y: 80,
-            opacity: 1,
-            stagger: .1,
-            duration: .8,
-            ease: "power3.out"
-
-        });
-
-
-        /* =========================================
-           PROJECTS
-        ========================================== */
-
-        document
-            .querySelectorAll(".project")
-            .forEach((project) => {
-
-                gsap.from(project, {
-
-                    scrollTrigger: {
-                        trigger: project,
-                        scroller: scrollContainer,
-                        start: "top 80%"
-                    },
-
-                    y: 100,
-                    opacity: 0,
-                    duration: 1,
-                    ease: "power4.out"
-
-                });
-
-            });
-
-
-        /* =========================================
-           PROJECT IMAGE PARALLAX
-        ========================================== */
-
-        document
-            .querySelectorAll(".project-image img")
-            .forEach((image) => {
-
-                gsap.fromTo(
-
-                    image,
-
-                    {
-                        yPercent: -8
-                    },
-
-                    {
-                        yPercent: 8,
-
-                        scrollTrigger: {
-                            trigger: image,
-                            scroller: scrollContainer,
-                            scrub: true
-                        }
-                    }
-
-                );
-
-            });
-
-
-        /* =========================================
-           BOARD IMAGE ANIMATION
-        ========================================== */
-
-        gsap.from(".board-image", {
-
-            scrollTrigger: {
-                trigger: ".image-board",
-                scroller: scrollContainer,
-                start: "top 70%"
-            },
-
-            scale: .7,
-            opacity: 0,
-            rotation: 0,
-            stagger: .15,
-            duration: 1.2,
-            ease: "back.out(1.5)"
-
-        });
-
-
-        /* =========================================
-           CONTACT
-        ========================================== */
-
-        gsap.from(".contact-title span", {
-
-            scrollTrigger: {
-                trigger: ".contact",
-                scroller: scrollContainer,
-                start: "top 50%"
-            },
-
-            y: 150,
-            opacity: 0,
-            stagger: .15,
-            duration: 1,
-            ease: "power4.out"
-
-        });
-
-
-        gsap.from(".social-link", {
-        scrollTrigger: {
-            trigger: ".socials",
-            scroller: scrollContainer,
-            start: "top 80%",
-            toggleActions: "play none none reverse",
-        },
-
-        x: 0,
-        opacity: 1,
-        stagger: 0.1,
-        duration: 0.8,
-        ease: "power2.out",
-    });
-
-
-        /* =========================================
-           RESIZE
-        ========================================== */
-
-        let resizeTimeout;
-        window.addEventListener("resize", () => {
-
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                locoScroll.update();
-                ScrollTrigger.refresh();
-            }, 250);
-
-        });
-
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
+
+    <!-- =====================================================
+        JAVASCRIPT
+    ====================================================== -->
+    <script src="./script.js"></script>
 
 </body>
 </html>

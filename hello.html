@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Adnan Hossain Addro | Portfolio</title>
+    <link rel="icon" type="image/png" href="/assets/favicons/favicon.svg" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/png" href="/assets/favicons/favicon.ico" media="(prefers-color-scheme: dark)">
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Locomotive Scroll -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.css"
+    >
+
+    <style>
+
+        /* =========================================
+            RESET
+        ========================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: auto;
+        }
+
+        body {
+            background: #f4f4f0;
+            color: #111;
+            font-family: "Inter", sans-serif;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            width: 100%;
+            display: block;
+        }
+
+        ::selection {
+            background: #174cff;
+            color: #fff;
+        }
+
+
+        /* =========================================
+           VARIABLES
+        ========================================= */
+
+        :root {
+            --white: #f4f4f0;
+            --black: #111111;
+            --gray: #b9b9b4;
+            --dark-gray: #555555;
+            --blue: #174cff;
+            --red: #ff3b30;
+            --yellow: #ffd83d;
+        }
+
+
+        /* =========================================
+           CUSTOM CURSOR
+        ========================================= */
+
+        .cursor {
+            position: fixed;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--blue);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+        }
+
+
+        /* =========================================
+           GLOBAL
+        ========================================= */
+
+        .page {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .container {
+            width: min(92%, 1400px);
+            margin: auto;
+        }
+
+        .mono {
+            font-family: "DM Mono", monospace;
+        }
+
+        .eyebrow {
+            font-family: "DM Mono", monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+        }
+
+
+        /* =========================================
+           NAV
+        ========================================= */
+
+        .nav {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 28px 4%;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-name {
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-status {
+            font-family: "DM Mono", monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+
+        .resume-btn {
+            padding: 12px 18px;
+            border: 1px solid var(--black);
+            background: transparent;
+            font-family: "DM Mono", monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            transition: .3s ease;
+            cursor: pointer;
+        }
+
+        .resume-btn:hover {
+            background: var(--black);
+            color: var(--white);
+        }
+
+
+        /* =========================================
+           HERO
+        ========================================= */
+
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            padding-top: 80px;
+        }
+
+        .hero-small {
+            margin-bottom: 25px;
+        }
+
+        .hero-title {
+            font-size: clamp(65px, 12vw, 190px);
+            line-height: .82;
+            letter-spacing: -.09em;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .hero-title span {
+            display: block;
+        }
+
+        .hero-title .blue {
+            color: var(--blue);
+        }
+
+        .hero-title .red {
+            color: var(--red);
+        }
+
+        .hero-title .yellow {
+            color: var(--yellow);
+            -webkit-text-stroke: 2px var(--black);
+        }
+
+        .hero-description {
+            max-width: 500px;
+            margin-top: 50px;
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+        .hero-bottom {
+            position: absolute;
+            bottom: 35px;
+            left: 4%;
+            right: 4%;
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            z-index: 5;
+        }
+
+        .scroll-label {
+            font-family: "DM Mono", monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+
+        .hero-number {
+            font-family: "DM Mono", monospace;
+            font-size: 11px;
+        }
+
+
+        /* =========================================
+           FLOATING SHAPES
+        ========================================= */
+
+        .shape {
+            position: absolute;
+            z-index: 1;
+        }
+
+        .shape-one {
+            width: 230px;
+            height: 230px;
+            background: var(--blue);
+            right: 9%;
+            top: 18%;
+            transform: rotate(14deg);
+        }
+
+        .shape-two {
+            width: 130px;
+            height: 130px;
+            background: var(--red);
+            right: 25%;
+            bottom: 15%;
+            border-radius: 50%;
+        }
+
+        .shape-three {
+            width: 160px;
+            height: 160px;
+            background: var(--yellow);
+            left: 4%;
+            top: 15%;
+            border: 2px solid var(--black);
+            transform: rotate(45deg);
+        }
+
+
+        /* =========================================
+           ABOUT
+        ========================================= */
+
+        .about {
+            padding: 180px 0;
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 80px;
+        }
+
+        .about-label {
+            color: var(--yellow);
+        }
+
+        .about-text {
+            font-size: clamp(35px, 5vw, 75px);
+            line-height: 1;
+            letter-spacing: -.06em;
+            font-weight: 700;
+        }
+
+        .about-text .highlight {
+            color: var(--blue);
+        }
+
+        .about-text .red-text {
+            color: var(--red);
+        }
+
+
+        /* =========================================
+           SKILLS
+        ========================================= */
+
+        .skills {
+            padding: 150px 0;
+            background: var(--yellow);
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            margin-bottom: 80px;
+        }
+
+        .section-heading h2 {
+            font-size: clamp(60px, 10vw, 150px);
+            line-height: .8;
+            letter-spacing: -.08em;
+            text-transform: uppercase;
+        }
+
+        .skills-list {
+            border-top: 2px solid var(--black);
+        }
+
+        .skill {
+            min-height: 100px;
+            border-bottom: 2px solid var(--black);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0;
+            transition: .4s ease;
+        }
+
+        .skill-name {
+            font-size: clamp(30px, 5vw, 70px);
+            font-weight: 800;
+            letter-spacing: -.06em;
+        }
+
+        .skill-number {
+            font-family: "DM Mono", monospace;
+            font-size: 12px;
+        }
+
+        .skill:hover {
+            padding-left: 30px;
+            padding-right: 30px;
+            background: var(--blue);
+            color: var(--white);
+        }
+
+
+        /* =========================================
+           PROJECTS
+        ========================================= */
+
+        .projects {
+            padding: 160px 0;
+            background: var(--white);
+        }
+
+        .projects-heading {
+            margin-bottom: 100px;
+        }
+
+        .projects-heading h2 {
+            font-size: clamp(65px, 12vw, 180px);
+            line-height: .8;
+            letter-spacing: -.09em;
+            text-transform: uppercase;
+        }
+
+        .project {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 80px;
+            padding: 80px 0;
+            border-top: 1px solid #aaa;
+        }
+
+        .project-info {
+            position: relative;
+        }
+
+        .project-number {
+            font-family: "DM Mono", monospace;
+            margin-bottom: 20px;
+        }
+
+        .project-title {
+            font-size: clamp(40px, 5vw, 75px);
+            line-height: .9;
+            letter-spacing: -.07em;
+            font-weight: 800;
+        }
+
+        .project-description {
+            margin-top: 30px;
+            max-width: 380px;
+            line-height: 1.6;
+            color: var(--dark-gray);
+        }
+
+        .project-link {
+            display: inline-block;
+            margin-top: 35px;
+            font-family: "DM Mono", monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--black);
+            padding-bottom: 5px;
+        }
+
+        .project-image {
+            overflow: hidden;
+            aspect-ratio: 16 / 10;
+            background: var(--gray);
+        }
+
+        .project-image img {
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s cubic-bezier(.16,1,.3,1);
+        }
+
+        .project:hover .project-image img {
+            transform: scale(1.07);
+        }
+
+
+        /* =========================================
+           PROJECT IMAGE BOARD
+        ========================================= */
+
+        .image-board {
+            padding: 120px 4%;
+            background: #deded9;
+        }
+
+        .board-title {
+            font-size: clamp(60px, 11vw, 160px);
+            font-weight: 900;
+            letter-spacing: -.09em;
+            line-height: .8;
+            text-transform: uppercase;
+            margin-bottom: 100px;
+        }
+
+        .board {
+            position: relative;
+            min-height: 850px;
+        }
+
+        .board-image {
+            position: absolute;
+            overflow: hidden;
+        }
+
+        .board-image img {
+            height: 100%;
+            object-fit: cover;
+            transition: transform .8s ease;
+        }
+
+        .board-image:hover img {
+            transform: scale(1.08);
+        }
+
+        .board-image:nth-child(1) {
+            width: 36%;
+            height: 350px;
+            left: 3%;
+            top: 50px;
+            transform: rotate(-4deg);
+        }
+
+        .board-image:nth-child(2) {
+            width: 30%;
+            height: 280px;
+            right: 6%;
+            top: 0;
+            transform: rotate(5deg);
+        }
+
+        .board-image:nth-child(3) {
+            width: 27%;
+            height: 350px;
+            left: 35%;
+            top: 280px;
+            transform: rotate(3deg);
+        }
+
+        .board-image:nth-child(4) {
+            width: 30%;
+            height: 300px;
+            left: 8%;
+            top: 550px;
+            transform: rotate(5deg);
+        }
+
+        .board-image:nth-child(5) {
+            width: 27%;
+            height: 320px;
+            right: 8%;
+            top: 470px;
+            transform: rotate(-5deg);
+        }
+
+
+        /* =========================================
+           CONTACT
+        ========================================= */
+
+        .contact {
+            min-height: 100vh;
+            background: var(--blue);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            padding: 100px 4%;
+        }
+
+        .contact-inner {
+            width: 100%;
+        }
+
+        .contact-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 60px;
+        }
+
+        .contact-label {
+            color: var(--yellow);
+        }
+
+        .contact-email {
+            font-family: "DM Mono", monospace;
+            font-size: 12px;
+        }
+
+        .contact-title {
+            font-size: clamp(65px, 13vw, 200px);
+            line-height: .75;
+            letter-spacing: -.1em;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .contact-title span {
+            display: block;
+        }
+
+        .contact-title .red-word {
+            color: var(--red);
+        }
+
+        .contact-title .yellow-word {
+            color: var(--yellow);
+            -webkit-text-stroke: 2px var(--black);
+        }
+
+
+        /* =========================================
+           SOCIAL LINKS
+        ========================================= */
+
+        .socials {
+            margin-top: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .social-link {
+            font-size: clamp(35px, 6vw, 90px);
+            font-weight: 800;
+            line-height: .95;
+            letter-spacing: -.06em;
+            position: relative;
+            transition: .4s ease;
+        }
+
+        .social-link::after {
+            content: "";
+            position: absolute;
+            height: 5px;
+            background: currentColor;
+            left: 0;
+            right: 100%;
+            top: 50%;
+            transition: right .5s cubic-bezier(.16,1,.3,1);
+        }
+
+        .social-link:hover::after {
+            right: 0;
+        }
+
+        .linkedin:hover {
+            color: #0a66c2;
+        }
+
+        .instagram:hover {
+            color: var(--yellow);
+        }
+
+        .twitter:hover {
+            color: var(--red);
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 800px) {
+
+            .nav {
+                padding: 22px 5%;
+            }
+
+            .nav-status {
+                display: none;
+            }
+
+            .hero {
+                min-height: 90vh;
+            }
+
+            .shape-one {
+                width: 130px;
+                height: 130px;
+                right: 3%;
+                top: 25%;
+            }
+
+            .shape-two {
+                width: 80px;
+                height: 80px;
+                right: 15%;
+            }
+
+            .shape-three {
+                width: 80px;
+                height: 80px;
+            }
+
+            .hero-description {
+                font-size: 15px;
+                max-width: 320px;
+            }
+
+            .about,
+            .skills,
+            .projects {
+                padding: 100px 0;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .section-heading {
+                display: block;
+            }
+
+            .section-heading .eyebrow {
+                margin-bottom: 30px;
+            }
+
+            .project {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 60px 0;
+            }
+
+            .board {
+                min-height: 800px;
+            }
+
+            .board-image:nth-child(1) {
+                width: 60%;
+                height: 230px;
+                left: 0;
+            }
+
+            .board-image:nth-child(2) {
+                width: 55%;
+                height: 200px;
+                right: 0;
+            }
+
+            .board-image:nth-child(3) {
+                width: 55%;
+                height: 230px;
+                left: 25%;
+                top: 260px;
+            }
+
+            .board-image:nth-child(4) {
+                width: 60%;
+                height: 210px;
+                left: 0;
+                top: 510px;
+            }
+
+            .board-image:nth-child(5) {
+                width: 55%;
+                height: 230px;
+                right: 0;
+                top: 620px;
+            }
+
+            .contact {
+                min-height: 100vh;
+            }
+
+            .contact-top {
+                display: block;
+            }
+
+            .contact-email {
+                margin-top: 20px;
+            }
+
+            .socials {
+                margin-top: 70px;
+            }
+
+            .social-link {
+                font-size: 42px;
+            }
+
+            .cursor {
+                display: none;
+            }
+
+            body {
+                cursor: auto;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <div class="cursor"></div>
+
+    <main data-scroll-container class="page">
+
+
+        <!-- =====================================
+             NAVIGATION
+        ====================================== -->
+
+        <nav class="nav">
+
+            <a href="#" class="nav-name">
+                ADDRO.
+            </a>
+
+            <div class="nav-right">
+
+                <span class="nav-status">
+                    Available for work
+                </span>
+
+                <a
+                    href="#"
+                    class="resume-btn"
+                    download
+                >
+                    Download Resume
+                </a>
+
+            </div>
+
+        </nav>
+
+
+        <!-- =====================================
+             HERO
+        ====================================== -->
+
+        <section class="hero">
+
+            <div class="shape shape-one"></div>
+            <div class="shape shape-two"></div>
+            <div class="shape shape-three"></div>
+
+            <div class="container hero-content">
+
+                <div class="hero-small eyebrow">
+                    Creative Developer / Designer
+                </div>
+
+                <h1 class="hero-title">
+
+                    <span class="hero-line">
+                        MAKE
+                    </span>
+
+                    <span class="hero-line blue">
+                        DIGITAL
+                    </span>
+
+                    <span class="hero-line red">
+                        THINGS
+                    </span>
+
+                    <span class="hero-line yellow">
+                        FUN.
+                    </span>
+
+                </h1>
+
+                <p class="hero-description">
+                    I design and build digital experiences, websites,
+                    applications and products that feel as good as
+                    they work.
+                </p>
+
+            </div>
+
+            <div class="hero-bottom">
+
+                <div class="scroll-label">
+                    ↓ Scroll to explore
+                </div>
+
+                <div class="hero-number">
+                    01 / 06
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             ABOUT
+        ====================================== -->
+
+        <section class="about">
+
+            <div class="container">
+
+                <div class="about-grid">
+
+                    <div>
+                        <span class="eyebrow about-label">
+                            02 — About
+                        </span>
+                    </div>
+
+                    <div>
+
+                        <p class="about-text">
+
+                            I'm a
+                            <span class="highlight">
+                                software engineer
+                            </span>
+                            who likes turning complicated ideas into
+                            simple, useful and
+                            <span class="red-text">
+                                memorable
+                            </span>
+                            digital experiences.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             SKILLS
+        ====================================== -->
+
+        <section class="skills">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="eyebrow">
+                        03 — What I do
+                    </span>
+
+                    <h2>
+                        Skills
+                    </h2>
+
+                </div>
+
+
+                <div class="skills-list">
+
+                    <div class="skill">
+                        <span class="skill-name">
+                            UI / UX Design
+                        </span>
+
+                        <span class="skill-number">
+                            01
+                        </span>
+                    </div>
+
+                    <div class="skill">
+                        <span class="skill-name">
+                            Web Development
+                        </span>
+
+                        <span class="skill-number">
+                            02
+                        </span>
+                    </div>
+
+                    <div class="skill">
+                        <span class="skill-name">
+                            React / Next.js
+                        </span>
+
+                        <span class="skill-number">
+                            03
+                        </span>
+                    </div>
+
+                    <div class="skill">
+                        <span class="skill-name">
+                            Node / Backend
+                        </span>
+
+                        <span class="skill-number">
+                            04
+                        </span>
+                    </div>
+
+                    <div class="skill">
+                        <span class="skill-name">
+                            SaaS Development
+                        </span>
+
+                        <span class="skill-number">
+                            05
+                        </span>
+                    </div>
+
+                    <div class="skill">
+                        <span class="skill-name">
+                            Creative Coding
+                        </span>
+
+                        <span class="skill-number">
+                            06
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             PROJECTS
+        ====================================== -->
+
+        <section class="projects">
+
+            <div class="container">
+
+                <div class="projects-heading">
+
+                    <span class="eyebrow">
+                        04 — Selected work
+                    </span>
+
+                    <h2>
+                        Projects
+                    </h2>
+
+                </div>
+
+
+                <!-- PROJECT 01 -->
+
+                <article class="project">
+
+                    <div class="project-info">
+
+                        <div class="project-number">
+                            001 / 004
+                        </div>
+
+                        <h3 class="project-title">
+                            SaaS
+                            Platform
+                        </h3>
+
+                        <p class="project-description">
+                            A scalable SaaS platform designed around
+                            real-time collaboration, dashboards,
+                            automation and modern product workflows.
+                        </p>
+
+                        <a href="#" class="project-link">
+                            View project →
+                        </a>
+
+                    </div>
+
+                    <div class="project-image">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=1600&q=80"
+                            alt="SaaS project"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                </article>
+
+
+                <!-- PROJECT 02 -->
+
+                <article class="project">
+
+                    <div class="project-info">
+
+                        <div class="project-number">
+                            002 / 004
+                        </div>
+
+                        <h3 class="project-title">
+                            Digital
+                            Product
+                        </h3>
+
+                        <p class="project-description">
+                            A bold product experience combining clean
+                            interface design with a powerful technical
+                            architecture.
+                        </p>
+
+                        <a href="#" class="project-link">
+                            View project →
+                        </a>
+
+                    </div>
+
+                    <div class="project-image">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=1600&q=80"
+                            alt="Digital product"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                </article>
+
+
+                <!-- PROJECT 03 -->
+
+                <article class="project">
+
+                    <div class="project-info">
+
+                        <div class="project-number">
+                            003 / 004
+                        </div>
+
+                        <h3 class="project-title">
+                            Creative
+                            Website
+                        </h3>
+
+                        <p class="project-description">
+                            An experimental website focused on motion,
+                            typography, storytelling and interaction.
+                        </p>
+
+                        <a href="#" class="project-link">
+                            View project →
+                        </a>
+
+                    </div>
+
+                    <div class="project-image">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1600&q=80"
+                            alt="Creative website"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                </article>
+
+
+                <!-- PROJECT 04 -->
+
+                <article class="project">
+
+                    <div class="project-info">
+
+                        <div class="project-number">
+                            004 / 004
+                        </div>
+
+                        <h3 class="project-title">
+                            Mobile
+                            Experience
+                        </h3>
+
+                        <p class="project-description">
+                            A mobile-first digital experience created
+                            with simplicity, accessibility and speed
+                            in mind.
+                        </p>
+
+                        <a href="#" class="project-link">
+                            View project →
+                        </a>
+
+                    </div>
+
+                    <div class="project-image">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=1600&q=80"
+                            alt="Mobile application"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             PROJECT IMAGE BOARD
+        ====================================== -->
+
+        <section class="image-board">
+
+            <div class="board-title">
+                Visual<br>
+                Playground
+            </div>
+
+            <div class="board">
+
+                <div class="board-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1000&q=80"
+                        alt=""
+                        loading="lazy"
+                    >
+
+                </div>
+
+                <div class="board-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=1000&q=80"
+                        alt=""
+                        loading="lazy"
+                    >
+
+                </div>
+
+                <div class="board-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=1000&q=80"
+                        alt=""
+                        loading="lazy"
+                    >
+
+                </div>
+
+                <div class="board-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1545235617-9465d2a55698?auto=format&fit=crop&w=1000&q=80"
+                        alt=""
+                        loading="lazy"
+                    >
+
+                </div>
+
+                <div class="board-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1000&q=80"
+                        alt=""
+                        loading="lazy"
+                    >
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             CONTACT
+        ====================================== -->
+
+        <section class="contact" id="contact">
+
+            <div class="contact-inner">
+
+                <div class="contact-top">
+
+                    <span class="eyebrow contact-label">
+                        06 — Let's talk
+                    </span>
+
+                    <span class="contact-email">
+                        hello@yourdomain.com
+                    </span>
+
+                </div>
+
+
+                <h2 class="contact-title">
+
+                    <span class="fade-up">
+                        HAVE
+                    </span>
+
+                    <span class="red-word fade-up">
+                        A GOOD
+                    </span>
+
+                    <span class="yellow-word fade-up">
+                        IDEA?
+                    </span>
+
+                </h2>
+
+
+                <div class="socials">
+
+                    <a
+                        href="https://linkedin.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="social-link linkedin fade-up"
+                    >
+                        LinkedIn ↗
+                    </a>
+
+                    <a
+                        href="https://instagram.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="social-link instagram fade-up"
+                    >
+                        Instagram ↗
+                    </a>
+
+                    <a
+                        href="https://x.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="social-link twitter fade-up"
+                    >
+                        X / Twitter ↗
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================
+         LOCOMOTIVE SCROLL
+    ========================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
+
+
+    <!-- =========================================
+         GSAP
+    ========================================== -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+
+    <script>
+
+        /* =========================================
+           LOCOMOTIVE
+        ========================================== */
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        const scrollContainer =
+            document.querySelector("[data-scroll-container]");
+
+        const locoScroll =
+            new LocomotiveScroll({
+                el: scrollContainer,
+                smooth: true,
+                lerp: 0.08
+            });
+
+
+        locoScroll.on("scroll", ScrollTrigger.update);
+
+
+        ScrollTrigger.scrollerProxy(
+            scrollContainer,
+            {
+                scrollTop(value) {
+
+                    return arguments.length
+                        ? locoScroll.scrollTo(value, {
+                            duration: 0,
+                            disableLerp: true
+                        })
+                        : locoScroll.scroll.instance.scroll.y;
+
+                },
+
+                scrollLeft() {
+                    return 0;
+                },
+
+                getBoundingClientRect() {
+
+                    return {
+                        top: 0,
+                        left: 0,
+                        width: window.innerWidth,
+                        height: window.innerHeight
+                    };
+
+                },
+
+                pinType:
+                    scrollContainer.style.transform
+                        ? "transform"
+                        : "fixed"
+            }
+        );
+
+
+        ScrollTrigger.addEventListener(
+            "refresh",
+            () => locoScroll.update()
+        );
+
+        ScrollTrigger.refresh();
+
+
+        /* =========================================
+           CUSTOM CURSOR
+        ========================================== */
+
+        const cursor =
+            document.querySelector(".cursor");
+
+        window.addEventListener("mousemove", (e) => {
+
+            gsap.to(cursor, {
+                x: e.clientX,
+                y: e.clientY,
+                duration: .2,
+                ease: "power2.out"
+            });
+
+        });
+
+
+        /* =========================================
+           HERO ANIMATION
+        ========================================== */
+
+        const heroTimeline = gsap.timeline();
+
+        heroTimeline
+            .from(".nav", {
+                y: -40,
+                opacity: 0,
+                duration: 1
+            })
+            .from(".hero-small", {
+                y: 30,
+                opacity: 0,
+                duration: .6
+            }, "-=.5")
+            .from(".hero-line", {
+                y: 150,
+                opacity: 0,
+                stagger: .12,
+                duration: 1,
+                ease: "power4.out"
+            }, "-=.3")
+            .from(".hero-description", {
+                y: 30,
+                opacity: 0,
+                duration: .8
+            }, "-=.5");
+
+
+        /* =========================================
+           FLOATING SHAPES
+        ========================================== */
+
+        gsap.to(".shape-one", {
+            y: 100,
+            rotation: 40,
+            duration: 4,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        });
+
+        gsap.to(".shape-two", {
+            x: -80,
+            y: -50,
+            duration: 3,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        });
+
+        gsap.to(".shape-three", {
+            rotation: 130,
+            duration: 6,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        });
+
+
+        /* =========================================
+           ABOUT ANIMATION
+        ========================================== */
+
+        gsap.from(".about-text", {
+
+            scrollTrigger: {
+                trigger: ".about",
+                scroller: scrollContainer,
+                start: "top 75%"
+            },
+
+            y: 100,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power4.out"
+
+        });
+
+
+        /* =========================================
+           SKILLS
+        ========================================== */
+
+        gsap.from(".skill", {
+
+            scrollTrigger: {
+                trigger: ".skills",
+                scroller: scrollContainer,
+                start: "top 70%"
+            },
+
+            y: 80,
+            opacity: 1,
+            stagger: .1,
+            duration: .8,
+            ease: "power3.out"
+
+        });
+
+
+        /* =========================================
+           PROJECTS
+        ========================================== */
+
+        document
+            .querySelectorAll(".project")
+            .forEach((project) => {
+
+                gsap.from(project, {
+
+                    scrollTrigger: {
+                        trigger: project,
+                        scroller: scrollContainer,
+                        start: "top 80%"
+                    },
+
+                    y: 100,
+                    opacity: 0,
+                    duration: 1,
+                    ease: "power4.out"
+
+                });
+
+            });
+
+
+        /* =========================================
+           PROJECT IMAGE PARALLAX
+        ========================================== */
+
+        document
+            .querySelectorAll(".project-image img")
+            .forEach((image) => {
+
+                gsap.fromTo(
+
+                    image,
+
+                    {
+                        yPercent: -8
+                    },
+
+                    {
+                        yPercent: 8,
+
+                        scrollTrigger: {
+                            trigger: image,
+                            scroller: scrollContainer,
+                            scrub: true
+                        }
+                    }
+
+                );
+
+            });
+
+
+        /* =========================================
+           BOARD IMAGE ANIMATION
+        ========================================== */
+
+        gsap.from(".board-image", {
+
+            scrollTrigger: {
+                trigger: ".image-board",
+                scroller: scrollContainer,
+                start: "top 70%"
+            },
+
+            scale: .7,
+            opacity: 0,
+            rotation: 0,
+            stagger: .15,
+            duration: 1.2,
+            ease: "back.out(1.5)"
+
+        });
+
+
+        /* =========================================
+           CONTACT
+        ========================================== */
+
+        gsap.from(".contact-title span", {
+
+            scrollTrigger: {
+                trigger: ".contact",
+                scroller: scrollContainer,
+                start: "top 50%"
+            },
+
+            y: 150,
+            opacity: 0,
+            stagger: .15,
+            duration: 1,
+            ease: "power4.out"
+
+        });
+
+
+        gsap.from(".social-link", {
+        scrollTrigger: {
+            trigger: ".socials",
+            scroller: scrollContainer,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+        },
+
+        x: 0,
+        opacity: 1,
+        stagger: 0.1,
+        duration: 0.8,
+        ease: "power2.out",
+    });
+
+
+        /* =========================================
+           RESIZE
+        ========================================== */
+
+        let resizeTimeout;
+        window.addEventListener("resize", () => {
+
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                locoScroll.update();
+                ScrollTrigger.refresh();
+            }, 250);
+
+        });
+
+    </script>
+
+</body>
+</html>
