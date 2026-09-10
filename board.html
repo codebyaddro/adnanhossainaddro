@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Content Board - Adnan Addro</title>
+    <title>content calendar</title>
     <style>
       * {
         margin: 0;
@@ -129,55 +129,72 @@
       }
 
       /* ---------- legend ---------- */
-      .legend {
+      .legend-bar {
         display: flex;
         flex-wrap: wrap;
-        gap: 4px 16px;
-        padding: 0 0 20px;
-        font-size: 11px;
-        color: var(--muted);
-      }
-
-      .legend span {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-      }
-
-      .legend .dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--text);
-      }
-
-      .legend .dot.hollow {
-        background: transparent;
-        border: 1px solid var(--text);
-      }
-
-      /* ---------- format legend (new) ---------- */
-      .format-legend {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px 14px;
-        padding: 10px 12px;
+        gap: 8px 20px;
+        padding: 12px 14px;
         margin-bottom: 16px;
         background: #fafafa;
         border: 1px solid var(--border);
         border-radius: 8px;
-        font-size: 10.5px;
-        color: var(--text);
+        font-size: 11px;
         align-items: center;
       }
 
-      .format-legend .lead {
+      .legend-bar .lead {
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.06em;
         font-size: 9.5px;
         color: var(--muted);
         margin-right: 4px;
+      }
+
+      .legend-bar .group {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .legend-bar .divider {
+        width: 1px;
+        height: 16px;
+        background: var(--border);
+      }
+
+      /* format chip */
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        font-size: 8.5px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        padding: 2px 6px;
+        border-radius: 3px;
+        line-height: 11px;
+        white-space: nowrap;
+      }
+
+      .chip.text {
+        background: transparent;
+        border: 1px solid var(--text);
+        color: var(--text);
+      }
+
+      .chip.visual {
+        background: var(--text);
+        border: 1px solid var(--text);
+        color: white;
+      }
+
+      .chip.cat {
+        background: #f0f0f0;
+        border: 1px solid #f0f0f0;
+        color: var(--text);
+        font-weight: 600;
       }
 
       /* ---------- calendar ---------- */
@@ -204,7 +221,7 @@
 
       .day {
         background: var(--panel);
-        min-height: 120px;
+        min-height: 110px;
         padding: 8px 8px 10px;
         display: flex;
         flex-direction: column;
@@ -270,7 +287,7 @@
       .task-list {
         display: flex;
         flex-direction: column;
-        gap: 1px;
+        gap: 3px;
         flex: 1;
       }
 
@@ -278,12 +295,13 @@
         display: flex;
         align-items: flex-start;
         gap: 6px;
-        padding: 4px 4px 4px 2px;
+        padding: 4px 5px;
         border-radius: 4px;
         cursor: pointer;
         user-select: none;
         transition: background 0.08s;
         line-height: 1.3;
+        border: 1px solid transparent;
       }
 
       .task:hover {
@@ -296,7 +314,7 @@
         border: 1px solid var(--border-strong);
         border-radius: 2px;
         flex-shrink: 0;
-        margin-top: 3px;
+        margin-top: 2px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -334,73 +352,41 @@
         pointer-events: none;
       }
 
-      /* platform + format row */
-      .task-meta {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        margin-bottom: 1px;
-        flex-wrap: wrap;
-      }
-
       .task-platform {
-        font-size: 9px;
+        font-size: 9.5px;
         font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        color: var(--muted);
+        color: var(--text);
+        display: block;
+        margin-bottom: 3px;
+        letter-spacing: -0.005em;
       }
 
       .task.completed .task-platform {
         color: var(--done);
       }
 
-      /* format badge — the new highlight */
-      .task-format {
-        font-size: 8px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-        padding: 1px 5px;
-        border-radius: 3px;
-        border: 1px solid var(--text);
-        color: var(--text);
-        background: transparent;
-        line-height: 12px;
+      .task-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3px;
+        align-items: center;
       }
 
-      /* distinct styles per bucket */
-      .task-format.text {
-        background: transparent;
-        border-style: solid;
-        border-color: var(--text);
+      .task.completed .chip {
+        opacity: 0.5;
       }
 
-      .task-format.visual {
-        background: var(--text);
-        border-color: var(--text);
-        color: white;
-      }
-
-      .task.completed .task-format {
+      .task.completed .chip.text {
         border-color: var(--done);
         color: var(--done);
       }
-      .task.completed .task-format.visual {
+      .task.completed .chip.visual {
         background: var(--done);
         border-color: var(--done);
-        color: white;
       }
-
-      .task-title {
-        font-size: 10.5px;
-        color: var(--text);
-        word-break: break-word;
-      }
-
-      .task.completed .task-title {
+      .task.completed .chip.cat {
+        background: #f8f8f8;
         color: var(--done);
-        text-decoration: line-through;
       }
 
       /* ---------- footer ---------- */
@@ -416,21 +402,6 @@
         justify-content: space-between;
       }
 
-      .footer .key {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        flex-wrap: wrap;
-      }
-
-      .footer .key b {
-        font-weight: 600;
-        color: var(--text);
-        text-transform: uppercase;
-        font-size: 9.5px;
-        letter-spacing: 0.06em;
-      }
-
       /* ---------- responsive ---------- */
       @media (max-width: 860px) {
         body {
@@ -440,22 +411,13 @@
           min-height: 100px;
           padding: 6px;
         }
-        .task-title {
+        .legend-bar {
           font-size: 10px;
+          padding: 10px 12px;
         }
-        .task-platform {
+        .chip {
           font-size: 8px;
-        }
-        .task-format {
-          font-size: 7px;
-          padding: 0 4px;
-        }
-        .legend {
-          display: none;
-        }
-        .format-legend {
-          font-size: 10px;
-          padding: 8px 10px;
+          padding: 1px 5px;
         }
       }
 
@@ -471,7 +433,7 @@
           margin-bottom: 4px;
         }
         .task {
-          padding: 2px;
+          padding: 3px;
           gap: 4px;
         }
         .task .box {
@@ -479,17 +441,17 @@
           width: 9px;
           height: 9px;
         }
-        .task-title {
-          font-size: 9px;
-        }
-        .task-meta {
-          gap: 4px;
-        }
         .task-platform {
-          display: none;
+          font-size: 9px;
+          margin-bottom: 2px;
         }
-        .task-format {
+        .task-tags {
+          gap: 2px;
+        }
+        .chip {
           font-size: 7px;
+          padding: 1px 4px;
+          letter-spacing: 0.04em;
         }
         .weekday {
           padding: 6px 4px 4px;
@@ -501,6 +463,9 @@
         .month-label {
           min-width: 110px;
           font-size: 12px;
+        }
+        .legend-bar {
+          display: none;
         }
       }
     </style>
@@ -523,33 +488,24 @@
         </div>
       </header>
 
-      <div class="legend">
-        <span><span class="dot"></span> LinkedIn</span>
-        <span><span class="dot hollow"></span> Instagram</span>
-        <span><span class="dot"></span> X</span>
-        <span><span class="dot hollow"></span> Threads</span>
-        <span><span class="dot"></span> Medium</span>
-        <span><span class="dot hollow"></span> Dev.to</span>
-        <span><span class="dot"></span> Hashnode</span>
-        <span><span class="dot hollow"></span> Reddit</span>
-        <span><span class="dot"></span> Stack Overflow</span>
-        <span><span class="dot hollow"></span> YouTube</span>
-      </div>
-
-      <div class="format-legend">
+      <div class="legend-bar">
         <span class="lead">format</span>
-        <span
-          ><span class="task-format text">TEXT</span> write it — no camera</span
-        >
-        <span
-          ><span class="task-format visual">CAROUSEL</span> design slides</span
-        >
-        <span
-          ><span class="task-format visual">REEL</span> short vertical
-          video</span
-        >
-        <span><span class="task-format visual">SHORT</span> youtube short</span>
-        <span><span class="task-format visual">VIDEO</span> long video</span>
+        <span class="group">
+          <span><span class="chip text">TEXT</span> write only</span>
+          <span><span class="chip visual">CAROUSEL</span> design</span>
+          <span><span class="chip visual">REEL</span> vertical video</span>
+          <span><span class="chip visual">VIDEO</span> long form</span>
+        </span>
+        <span class="divider"></span>
+        <span class="lead">category</span>
+        <span class="group">
+          <span><span class="chip cat">SWE</span></span>
+          <span><span class="chip cat">AI</span></span>
+          <span><span class="chip cat">CAREER</span></span>
+          <span><span class="chip cat">BUILD</span></span>
+          <span><span class="chip cat">OPINION</span></span>
+          <span><span class="chip cat">TUTORIAL</span></span>
+        </span>
       </div>
 
       <div class="calendar" id="calendarGrid"></div>
@@ -559,14 +515,6 @@
           Mon SWE · Tue Career · Wed AI · Thu Tutorial · Fri Build · Sat Opinion
           · Sun Rest
         </div>
-        <div class="key">
-          <b>key</b>
-          <span><span class="task-format text">TEXT</span> write only</span>
-          <span
-            ><span class="task-format visual">VISUAL</span> camera /
-            design</span
-          >
-        </div>
       </footer>
     </div>
 
@@ -575,165 +523,43 @@
         "use strict";
 
         // ============================================================
-        // CONTENT POOLS
-        // ============================================================
-        const TOPIC_POOLS = {
-          swe: [
-            "5 backend mistakes I made as a software engineer",
-            "Why clean code matters more than clever code",
-            "The database index that cut our query time by 90%",
-            "System design: how I think about scaling a REST API",
-            "Git workflow mistakes that slow down small teams",
-            "Testing isn't optional: how I structure test suites",
-            "The real cost of premature optimization",
-            "Idempotency in APIs: why your POST endpoint needs it",
-            "Monolith vs microservices: a decision framework",
-            'What "production-ready" actually means in practice',
-          ],
-          ai: [
-            "RAG vs fine-tuning: when should you actually use each?",
-            "AI agents are not better chatbots — here's the difference",
-            "4 components every AI agent needs",
-            "Prompt engineering is just clear thinking",
-            "Building an AI workflow that turns requests into tasks",
-            "The hidden cost of embedding search at scale",
-            "Why most RAG systems fail in production",
-            "LLM memory: short-term vs long-term, explained",
-            "AI coding tools don't make bad developers good",
-            "Function calling is the real unlock for AI agents",
-          ],
-          career: [
-            "Why many junior developers know React but still can't get hired",
-            "A portfolio project that actually gets interviews",
-            "What I'd learn first if I started over in 2026",
-            "Freelancing as a developer: first 6 months lessons",
-            "Interview prep: beyond LeetCode",
-            "Open source changed how I write code",
-            "Real-world development vs tutorials: the gap",
-            "Communication skills get you promoted faster than code",
-            "How to ask for help without looking junior",
-            "The junior developer's guide to reading codebases",
-          ],
-          build: [
-            "I built an AI automation that turns requests into tasks",
-            "What I learned shipping a small SaaS in 30 days",
-            "A technical decision that cost me a week",
-            "Building Kodeem Labs: lessons from week 1",
-            "My failed experiment with a no-code AI builder",
-            "Why I chose FastAPI over Node for this project",
-            "Automating my client intake with an AI agent",
-            "What a real client project taught me about scope",
-            "Ship small, ship often: my product experiment log",
-            "The automation that saved me 5 hours per week",
-          ],
-          opinion: [
-            "Do junior developers really need to learn 5 programming languages?",
-            "Will AI replace junior developers — or change what they do?",
-            "Is LeetCode actually useful for software engineers?",
-            "MERN is popular, but is it still the best choice?",
-            "Certificates don't get you hired. Projects do.",
-            'Most "AI tools" are just wrappers. And that\'s fine.',
-            "Depth beats collecting technologies",
-            "Why I stopped chasing every new JS framework",
-            "The best developers I know write boring code",
-            "Remote work didn't kill mentorship. Bad onboarding did.",
-          ],
-          tutorial: [
-            "Build a REST API with FastAPI: step by step",
-            'Docker for developers: beyond "it works on my machine"',
-            "Authentication patterns: JWT vs sessions",
-            "PostgreSQL indexing: a practical walkthrough",
-            "Build an AI agent with Python in 30 minutes",
-            "React architecture: how I structure large apps",
-            "CI/CD with GitHub Actions: a minimal setup",
-            "Node.js error handling: patterns that scale",
-            "Building a webhook system from scratch",
-            "Caching strategies every backend dev should know",
-          ],
-        };
-
-        const IG_TITLES = {
-          swe: [
-            "7 backend mistakes juniors make",
-            "API security checklist",
-            "How REST APIs work",
-          ],
-          ai: [
-            "AI agent vs chatbot",
-            "How AI agents work",
-            "RAG explained in 6 slides",
-          ],
-          career: [
-            "Junior dev job hunt checklist",
-            "Portfolio project blueprint",
-            "Interview prep map",
-          ],
-          build: [
-            "Behind the build: Kodeem Labs",
-            "AI automation demo",
-            "Shipping a SaaS in 30 days",
-          ],
-          opinion: [
-            "Depth over collecting tech",
-            "Do juniors need 5 languages?",
-            "Stop chasing frameworks",
-          ],
-          tutorial: [
-            "FastAPI in 60 seconds",
-            "Docker basics explained",
-            "JWT vs sessions",
-          ],
-        };
-
-        const X_TITLES = {
-          swe: [
-            "Backend mistakes thread",
-            "Clean code checklist",
-            "DB indexing tips",
-          ],
-          ai: [
-            "AI agent architecture thread",
-            "RAG vs fine-tuning thread",
-            "LLM memory thread",
-          ],
-          career: [
-            "Junior dev advice thread",
-            "Portfolio thread",
-            "Interview tips",
-          ],
-          build: [
-            "Build log thread",
-            "SaaS lessons thread",
-            "Automation thread",
-          ],
-          opinion: [
-            "Unpopular dev opinion",
-            "Hot take thread",
-            "Depth vs breadth",
-          ],
-          tutorial: [
-            "FastAPI tutorial thread",
-            "Docker thread",
-            "Auth patterns thread",
-          ],
-        };
-
-        // ============================================================
         // RULES
         // ============================================================
-        const DAY_TO_PILLAR = {
-          1: "swe",
-          2: "career",
-          3: "ai",
-          4: "tutorial",
-          5: "build",
-          6: "opinion",
-          0: "rest",
+
+        // Day of week → category
+        const DAY_TO_CATEGORY = {
+          1: "swe", // Monday
+          2: "career", // Tuesday
+          3: "ai", // Wednesday
+          4: "tutorial", // Thursday
+          5: "build", // Friday
+          6: "opinion", // Saturday
+          0: null, // Sunday = rest
         };
 
-        // FORMAT MAP — the key distinction
-        // 'text'   = write only
-        // 'visual' = camera / design work
+        // Category display labels
+        const CATEGORY_LABEL = {
+          swe: "SWE",
+          ai: "AI",
+          career: "CAREER",
+          build: "BUILD",
+          opinion: "OPINION",
+          tutorial: "TUTORIAL",
+          rest: "REST",
+        };
+
+        // Category descriptive text
+        const CATEGORY_DESC = {
+          swe: "Software engineering",
+          ai: "AI / AI engineering",
+          career: "Developer career",
+          build: "Building in public",
+          opinion: "Opinion / discussion",
+          tutorial: "Technical tutorial",
+          rest: "Planning / rest",
+        };
+
+        // Platform → default format
         const PLATFORM_FORMAT = {
           linkedin: { label: "TEXT", kind: "text" },
           x: { label: "TEXT", kind: "text" },
@@ -743,38 +569,25 @@
           hashnode: { label: "TEXT", kind: "text" },
           reddit: { label: "TEXT", kind: "text" },
           stackoverflow: { label: "TEXT", kind: "text" },
-          instagram: { label: "VISUAL", kind: "visual" }, // will override per task
+          instagram: { label: "CAROUSEL", kind: "visual" },
           youtube: { label: "VIDEO", kind: "visual" },
         };
 
-        function formatForTask(task) {
-          // Instagram gets a specific format badge
-          if (task.platform === "instagram") {
-            if (task.format === "Carousel")
-              return { label: "CAROUSEL", kind: "visual" };
-            if (task.format === "Reel")
-              return { label: "REEL", kind: "visual" };
-            return { label: "VISUAL", kind: "visual" };
-          }
-          if (task.platform === "youtube") {
-            if (task.format === "Short")
-              return { label: "SHORT", kind: "visual" };
-            if (task.format === "Long video")
-              return { label: "VIDEO", kind: "visual" };
-            return { label: "VIDEO", kind: "visual" };
-          }
-          return (
-            PLATFORM_FORMAT[task.platform] || { label: "TEXT", kind: "text" }
-          );
-        }
-
-        function seededRandom(seed) {
-          const x = Math.sin(seed) * 10000;
-          return x - Math.floor(x);
-        }
+        const PLATFORM_LABEL = {
+          medium: "Medium",
+          linkedin: "LinkedIn",
+          instagram: "Instagram",
+          x: "X",
+          threads: "Threads",
+          devto: "Dev.to",
+          hashnode: "Hashnode",
+          reddit: "Reddit",
+          stackoverflow: "Stack Overflow",
+          youtube: "YouTube",
+        };
 
         // ============================================================
-        // MONTH PLAN
+        // MONTH PLAN — build from rules
         // ============================================================
         const planCache = {};
 
@@ -784,198 +597,172 @@
 
           const daysInMonth = new Date(year, month + 1, 0).getDate();
           const plan = {};
-          const pillarCounter = {};
-          const monthSeed = year * 100 + month;
 
           for (let d = 1; d <= daysInMonth; d++) {
-            const date = new Date(year, month, d);
-            const dow = date.getDay();
-            const pillar = DAY_TO_PILLAR[dow];
+            const dow = new Date(year, month, d).getDay();
+            const category = DAY_TO_CATEGORY[dow];
             const tasks = [];
 
-            if (pillar !== "rest") {
-              pillarCounter[pillar] = (pillarCounter[pillar] || 0) + 1;
-              const idx = pillarCounter[pillar];
-              const pool = TOPIC_POOLS[pillar];
-              const topic =
-                pool[
-                  (idx +
-                    Math.floor(seededRandom(monthSeed + idx) * pool.length)) %
-                    pool.length
-                ];
-
+            // ---- weekly rhythm ----
+            if (category) {
+              // LinkedIn — every weekday
               tasks.push({
                 platform: "linkedin",
-                format: "Post",
-                title: topic,
+                format: "TEXT",
+                category: category,
               });
 
+              // Instagram — Mon, Wed, Fri
               if (dow === 1 || dow === 3 || dow === 5) {
-                const igPool = IG_TITLES[pillar] || [];
-                const igTitle = igPool.length
-                  ? igPool[
-                      (idx +
-                        Math.floor(
-                          seededRandom(monthSeed + idx * 3) * igPool.length,
-                        )) %
-                        igPool.length
-                    ]
-                  : "Carousel";
                 tasks.push({
                   platform: "instagram",
-                  format: dow === 3 || dow === 5 ? "Reel" : "Carousel",
-                  title: igTitle,
+                  format: dow === 3 || dow === 5 ? "REEL" : "CAROUSEL",
+                  category: category,
                 });
               }
 
+              // X — Tue, Thu
               if (dow === 2 || dow === 4) {
-                const xPool = X_TITLES[pillar] || [];
-                const xTitle = xPool.length
-                  ? xPool[
-                      (idx +
-                        Math.floor(
-                          seededRandom(monthSeed + idx * 7) * xPool.length,
-                        )) %
-                        xPool.length
-                    ]
-                  : "Short post";
                 tasks.push({
                   platform: "x",
-                  format: dow === 4 ? "Thread" : "Post",
-                  title: xTitle,
+                  format: "TEXT",
+                  category: category,
                 });
               }
 
+              // Threads — Tue, Sat
               if (dow === 2 || dow === 6) {
                 tasks.push({
                   platform: "threads",
-                  format: "Post",
-                  title: dow === 6 ? "Developer diary" : "Quick dev thought",
+                  format: "TEXT",
+                  category: category,
                 });
               }
 
+              // Reddit — Sat
               if (dow === 6) {
                 tasks.push({
                   platform: "reddit",
-                  format: "Contribution",
-                  title: "Answer a question in r/webdev or r/ExperiencedDevs",
+                  format: "TEXT",
+                  category: category,
                 });
               }
             }
 
+            // ---- Sunday ----
             if (dow === 0) {
               tasks.push({
                 platform: "threads",
-                format: "Planning",
-                title: "Plan next week · schedule posts",
+                format: "TEXT",
+                category: "rest",
               });
             }
 
+            // ---- date-based ----
             if (d === 3) {
               tasks.unshift({
                 platform: "medium",
-                format: "Blog #1",
-                title: "How to Become a Job-Ready Software Engineer",
+                format: "TEXT",
+                category: "career",
               });
               tasks.push({
                 platform: "devto",
-                format: "Cross-post",
-                title: "Dev version of Blog #1",
+                format: "TEXT",
+                category: "career",
               });
             }
             if (d === 13) {
               tasks.unshift({
                 platform: "medium",
-                format: "Blog #2",
-                title: "Building Production-Ready REST APIs",
+                format: "TEXT",
+                category: "tutorial",
               });
               tasks.push({
                 platform: "hashnode",
-                format: "Cross-post",
-                title: "Technical version of Blog #2",
+                format: "TEXT",
+                category: "tutorial",
               });
             }
             if (d === 23) {
               tasks.unshift({
                 platform: "medium",
-                format: "Blog #3",
-                title: "AI Agents Explained: Architecture & Use Cases",
+                format: "TEXT",
+                category: "ai",
               });
               tasks.push({
                 platform: "linkedin",
-                format: "Repurpose",
-                title: "5 lessons from building AI agents",
+                format: "TEXT",
+                category: "ai",
               });
               tasks.push({
                 platform: "instagram",
-                format: "Carousel",
-                title: "AI agents in 6 slides",
+                format: "CAROUSEL",
+                category: "ai",
               });
-              tasks.push({
-                platform: "x",
-                format: "Thread",
-                title: "AI agents explained in a thread",
-              });
-              tasks.push({
-                platform: "devto",
-                format: "Cross-post",
-                title: "Building AI agents: implementation guide",
-              });
+              tasks.push({ platform: "x", format: "TEXT", category: "ai" });
+              tasks.push({ platform: "devto", format: "TEXT", category: "ai" });
               tasks.push({
                 platform: "hashnode",
-                format: "Cross-post",
-                title: "AI agent architecture deep dive",
+                format: "TEXT",
+                category: "ai",
               });
               tasks.push({
                 platform: "reddit",
-                format: "Contribution",
-                title: 'Answer "AI agent vs LLM" questions',
+                format: "TEXT",
+                category: "ai",
               });
             }
             if (d === 20) {
               tasks.push({
                 platform: "youtube",
-                format: "Long video",
-                title: "AI Agents Explained in 10 Minutes",
+                format: "VIDEO",
+                category: "ai",
               });
             }
             if (d === 27) {
               tasks.push({
                 platform: "youtube",
-                format: "Short",
-                title: "AI agents in 60 seconds",
+                format: "REEL",
+                category: "ai",
               });
             }
             if (d === 14) {
               tasks.push({
                 platform: "reddit",
-                format: "Contribution",
-                title: "Mid-month check-in",
+                format: "TEXT",
+                category: "opinion",
               });
             }
             if (d === 29) {
               tasks.push({
                 platform: "reddit",
-                format: "Contribution",
-                title: "End-of-month discussion",
+                format: "TEXT",
+                category: "opinion",
               });
             }
             if (d === 30) {
               tasks.push({
                 platform: "linkedin",
-                format: "Recap",
-                title: "Month in review",
+                format: "TEXT",
+                category: "build",
               });
             }
             if (dow === 1) {
               tasks.push({
                 platform: "stackoverflow",
-                format: "Answers",
-                title: "Answer 2–5 questions",
+                format: "TEXT",
+                category: "swe",
               });
             }
 
-            plan[d] = tasks;
+            // ---- deduplicate identical platform+format+category triples ----
+            const seen = new Set();
+            plan[d] = tasks.filter(function (t) {
+              const k = t.platform + "|" + t.format + "|" + t.category;
+              if (seen.has(k)) return false;
+              seen.add(k);
+              return true;
+            });
           }
 
           planCache[cacheKey] = plan;
@@ -988,7 +775,7 @@
         let currentYear = new Date().getFullYear();
         let currentMonth = new Date().getMonth();
 
-        const STORAGE_KEY = "content-calendar-v5";
+        const STORAGE_KEY = "content-calendar-v6";
 
         let checks = loadChecksFromStorage();
 
@@ -1008,8 +795,22 @@
           }
         }
 
-        function taskKey(year, month, day, platform, index) {
-          return year + "-" + month + "-" + day + "-" + platform + "-" + index;
+        function taskKey(year, month, day, platform, format, category, index) {
+          return (
+            year +
+            "-" +
+            month +
+            "-" +
+            day +
+            "-" +
+            platform +
+            "-" +
+            format +
+            "-" +
+            category +
+            "-" +
+            index
+          );
         }
 
         // ============================================================
@@ -1049,19 +850,6 @@
           "Dec",
         ];
 
-        const PLATFORM_LABEL = {
-          medium: "Medium",
-          linkedin: "LinkedIn",
-          instagram: "Instagram",
-          x: "X",
-          threads: "Threads",
-          devto: "Dev.to",
-          hashnode: "Hashnode",
-          reddit: "Reddit",
-          stackoverflow: "Stack Overflow",
-          youtube: "YouTube",
-        };
-
         const CHECK_ICON =
           '<svg viewBox="0 0 10 10"><path d="M1.5 5.2l2.2 2.2 4.8-4.8"/></svg>';
 
@@ -1081,6 +869,11 @@
           }
           monthSelect.value = currentMonth;
           yearSelect.value = currentYear;
+        }
+
+        function formatChipClass(fmt) {
+          if (fmt === "TEXT") return "text";
+          return "visual";
         }
 
         function renderCalendar(year, month) {
@@ -1116,7 +909,6 @@
           const plan = buildMonthPlan(year, month);
 
           for (let d = 1; d <= daysInMonth; d++) {
-            const dow = new Date(year, month, d).getDay();
             const dayDiv = document.createElement("div");
             dayDiv.className = "day";
             if (isCurrentMonth && today.getDate() === d)
@@ -1155,9 +947,16 @@
             const tasks = plan[d] || [];
 
             tasks.forEach(function (task, idx) {
-              const key = taskKey(year, month, d, task.platform, idx);
+              const key = taskKey(
+                year,
+                month,
+                d,
+                task.platform,
+                task.format,
+                task.category,
+                idx,
+              );
               const done = !!checks[key];
-              const fmt = formatForTask(task);
 
               const taskEl = document.createElement("div");
               taskEl.className = "task" + (done ? " completed" : "");
@@ -1170,30 +969,41 @@
               const body = document.createElement("div");
               body.className = "task-body";
 
-              const metaRow = document.createElement("div");
-              metaRow.className = "task-meta";
-
+              // platform name
               const platformSpan = document.createElement("span");
               platformSpan.className = "task-platform";
               platformSpan.textContent =
                 PLATFORM_LABEL[task.platform] || task.platform;
 
-              const formatSpan = document.createElement("span");
-              formatSpan.className = "task-format " + fmt.kind;
-              formatSpan.textContent = fmt.label;
+              // format + category chips
+              const tags = document.createElement("div");
+              tags.className = "task-tags";
 
-              metaRow.appendChild(platformSpan);
-              metaRow.appendChild(formatSpan);
+              const fmtChip = document.createElement("span");
+              fmtChip.className = "chip " + formatChipClass(task.format);
+              fmtChip.textContent = task.format;
 
-              const titleSpan = document.createElement("span");
-              titleSpan.className = "task-title";
-              titleSpan.textContent = task.title;
+              const catChip = document.createElement("span");
+              catChip.className = "chip cat";
+              catChip.textContent =
+                CATEGORY_LABEL[task.category] || task.category;
 
-              body.appendChild(metaRow);
-              body.appendChild(titleSpan);
+              tags.appendChild(fmtChip);
+              tags.appendChild(catChip);
+
+              body.appendChild(platformSpan);
+              body.appendChild(tags);
 
               taskEl.appendChild(box);
               taskEl.appendChild(body);
+
+              // title attribute for hover tooltip with full description
+              taskEl.title =
+                PLATFORM_LABEL[task.platform] +
+                " · " +
+                task.format +
+                " · " +
+                (CATEGORY_DESC[task.category] || task.category);
 
               taskEl.addEventListener("click", function (e) {
                 e.stopPropagation();
