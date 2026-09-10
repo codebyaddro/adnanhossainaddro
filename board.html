@@ -1,0 +1,1271 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Content Board - Adnan Addro</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --bg: #ffffff;
+        --panel: #ffffff;
+        --border: #e5e5e5;
+        --border-strong: #111111;
+        --text: #111111;
+        --muted: #888888;
+        --faint: #f5f5f5;
+        --done: #cccccc;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Helvetica,
+          Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        padding: 32px 24px 48px;
+        font-size: 13px;
+        line-height: 1.45;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .container {
+        max-width: 1280px;
+        margin: 0 auto;
+      }
+
+      /* ---------- header ---------- */
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid var(--border);
+        flex-wrap: wrap;
+      }
+
+      .title {
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+
+      .title span {
+        color: var(--muted);
+        font-weight: 400;
+        margin-left: 8px;
+        font-size: 12px;
+      }
+
+      .controls {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .controls button,
+      .controls select {
+        appearance: none;
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--text);
+        font-family: inherit;
+        font-size: 12px;
+        height: 32px;
+        padding: 0 10px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition:
+          border-color 0.1s,
+          background 0.1s;
+      }
+
+      .controls button {
+        width: 32px;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .controls button:hover,
+      .controls select:hover {
+        border-color: var(--border-strong);
+      }
+      .controls button:active {
+        background: var(--faint);
+      }
+
+      .controls select {
+        padding-right: 24px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6' fill='none' stroke='%23111' stroke-width='1.5'%3E%3Cpath d='M1 1l4 4 4-4'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 9px center;
+      }
+
+      .controls svg {
+        width: 14px;
+        height: 14px;
+        stroke: currentColor;
+        stroke-width: 1.75;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .month-label {
+        font-size: 13px;
+        font-weight: 500;
+        min-width: 130px;
+        text-align: center;
+        letter-spacing: -0.01em;
+      }
+
+      /* ---------- legend ---------- */
+      .legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 16px;
+        padding: 0 0 20px;
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      .legend span {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .legend .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--text);
+      }
+
+      .legend .dot.hollow {
+        background: transparent;
+        border: 1px solid var(--text);
+      }
+
+      /* ---------- format legend (new) ---------- */
+      .format-legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 14px;
+        padding: 10px 12px;
+        margin-bottom: 16px;
+        background: #fafafa;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        font-size: 10.5px;
+        color: var(--text);
+        align-items: center;
+      }
+
+      .format-legend .lead {
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        font-size: 9.5px;
+        color: var(--muted);
+        margin-right: 4px;
+      }
+
+      /* ---------- calendar ---------- */
+      .calendar {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .weekday {
+        background: var(--panel);
+        text-align: left;
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+        padding: 10px 10px 8px;
+      }
+
+      .day {
+        background: var(--panel);
+        min-height: 120px;
+        padding: 8px 8px 10px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
+
+      .day.empty {
+        background: #fafafa;
+      }
+
+      .day.today .day-number {
+        background: var(--text);
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: -3px;
+      }
+
+      .day-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 6px;
+        min-height: 20px;
+      }
+
+      .day-number {
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--text);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .day.empty .day-number {
+        color: var(--muted);
+      }
+
+      .day-meta {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 9px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--muted);
+      }
+
+      .day-meta .mark {
+        font-weight: 600;
+        color: var(--text);
+        border: 1px solid var(--text);
+        border-radius: 3px;
+        padding: 0 4px;
+        line-height: 13px;
+        font-size: 9px;
+      }
+
+      /* ---------- tasks ---------- */
+      .task-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        flex: 1;
+      }
+
+      .task {
+        display: flex;
+        align-items: flex-start;
+        gap: 6px;
+        padding: 4px 4px 4px 2px;
+        border-radius: 4px;
+        cursor: pointer;
+        user-select: none;
+        transition: background 0.08s;
+        line-height: 1.3;
+      }
+
+      .task:hover {
+        background: var(--faint);
+      }
+
+      .task .box {
+        width: 10px;
+        height: 10px;
+        border: 1px solid var(--border-strong);
+        border-radius: 2px;
+        flex-shrink: 0;
+        margin-top: 3px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          background 0.1s,
+          border-color 0.1s;
+        pointer-events: none;
+      }
+
+      .task .box svg {
+        width: 7px;
+        height: 7px;
+        stroke: white;
+        stroke-width: 2.5;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        opacity: 0;
+        transition: opacity 0.1s;
+        pointer-events: none;
+      }
+
+      .task.completed .box {
+        background: var(--text);
+        border-color: var(--text);
+      }
+
+      .task.completed .box svg {
+        opacity: 1;
+      }
+
+      .task-body {
+        flex: 1;
+        min-width: 0;
+        pointer-events: none;
+      }
+
+      /* platform + format row */
+      .task-meta {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-bottom: 1px;
+        flex-wrap: wrap;
+      }
+
+      .task-platform {
+        font-size: 9px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--muted);
+      }
+
+      .task.completed .task-platform {
+        color: var(--done);
+      }
+
+      /* format badge — the new highlight */
+      .task-format {
+        font-size: 8px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        padding: 1px 5px;
+        border-radius: 3px;
+        border: 1px solid var(--text);
+        color: var(--text);
+        background: transparent;
+        line-height: 12px;
+      }
+
+      /* distinct styles per bucket */
+      .task-format.text {
+        background: transparent;
+        border-style: solid;
+        border-color: var(--text);
+      }
+
+      .task-format.visual {
+        background: var(--text);
+        border-color: var(--text);
+        color: white;
+      }
+
+      .task.completed .task-format {
+        border-color: var(--done);
+        color: var(--done);
+      }
+      .task.completed .task-format.visual {
+        background: var(--done);
+        border-color: var(--done);
+        color: white;
+      }
+
+      .task-title {
+        font-size: 10.5px;
+        color: var(--text);
+        word-break: break-word;
+      }
+
+      .task.completed .task-title {
+        color: var(--done);
+        text-decoration: line-through;
+      }
+
+      /* ---------- footer ---------- */
+      .footer {
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid var(--border);
+        font-size: 11px;
+        color: var(--muted);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 20px;
+        justify-content: space-between;
+      }
+
+      .footer .key {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .footer .key b {
+        font-weight: 600;
+        color: var(--text);
+        text-transform: uppercase;
+        font-size: 9.5px;
+        letter-spacing: 0.06em;
+      }
+
+      /* ---------- responsive ---------- */
+      @media (max-width: 860px) {
+        body {
+          padding: 20px 12px 32px;
+        }
+        .day {
+          min-height: 100px;
+          padding: 6px;
+        }
+        .task-title {
+          font-size: 10px;
+        }
+        .task-platform {
+          font-size: 8px;
+        }
+        .task-format {
+          font-size: 7px;
+          padding: 0 4px;
+        }
+        .legend {
+          display: none;
+        }
+        .format-legend {
+          font-size: 10px;
+          padding: 8px 10px;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .calendar {
+          border-radius: 6px;
+        }
+        .day {
+          min-height: 72px;
+          padding: 4px;
+        }
+        .day-header {
+          margin-bottom: 4px;
+        }
+        .task {
+          padding: 2px;
+          gap: 4px;
+        }
+        .task .box {
+          margin-top: 2px;
+          width: 9px;
+          height: 9px;
+        }
+        .task-title {
+          font-size: 9px;
+        }
+        .task-meta {
+          gap: 4px;
+        }
+        .task-platform {
+          display: none;
+        }
+        .task-format {
+          font-size: 7px;
+        }
+        .weekday {
+          padding: 6px 4px 4px;
+          font-size: 9px;
+        }
+        .header {
+          gap: 8px;
+        }
+        .month-label {
+          min-width: 110px;
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="title">
+          content calendar <span id="monthDisplay"></span>
+        </div>
+        <div class="controls">
+          <button id="prevMonthBtn" aria-label="Previous month">
+            <svg viewBox="0 0 16 16"><path d="M10 3L5 8l5 5" /></svg>
+          </button>
+          <button id="nextMonthBtn" aria-label="Next month">
+            <svg viewBox="0 0 16 16"><path d="M6 3l5 5-5 5" /></svg>
+          </button>
+          <select id="monthSelect" aria-label="Month"></select>
+          <select id="yearSelect" aria-label="Year"></select>
+        </div>
+      </header>
+
+      <div class="legend">
+        <span><span class="dot"></span> LinkedIn</span>
+        <span><span class="dot hollow"></span> Instagram</span>
+        <span><span class="dot"></span> X</span>
+        <span><span class="dot hollow"></span> Threads</span>
+        <span><span class="dot"></span> Medium</span>
+        <span><span class="dot hollow"></span> Dev.to</span>
+        <span><span class="dot"></span> Hashnode</span>
+        <span><span class="dot hollow"></span> Reddit</span>
+        <span><span class="dot"></span> Stack Overflow</span>
+        <span><span class="dot hollow"></span> YouTube</span>
+      </div>
+
+      <div class="format-legend">
+        <span class="lead">format</span>
+        <span
+          ><span class="task-format text">TEXT</span> write it — no camera</span
+        >
+        <span
+          ><span class="task-format visual">CAROUSEL</span> design slides</span
+        >
+        <span
+          ><span class="task-format visual">REEL</span> short vertical
+          video</span
+        >
+        <span><span class="task-format visual">SHORT</span> youtube short</span>
+        <span><span class="task-format visual">VIDEO</span> long video</span>
+      </div>
+
+      <div class="calendar" id="calendarGrid"></div>
+
+      <footer class="footer">
+        <div>
+          Mon SWE · Tue Career · Wed AI · Thu Tutorial · Fri Build · Sat Opinion
+          · Sun Rest
+        </div>
+        <div class="key">
+          <b>key</b>
+          <span><span class="task-format text">TEXT</span> write only</span>
+          <span
+            ><span class="task-format visual">VISUAL</span> camera /
+            design</span
+          >
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      (function () {
+        "use strict";
+
+        // ============================================================
+        // CONTENT POOLS
+        // ============================================================
+        const TOPIC_POOLS = {
+          swe: [
+            "5 backend mistakes I made as a software engineer",
+            "Why clean code matters more than clever code",
+            "The database index that cut our query time by 90%",
+            "System design: how I think about scaling a REST API",
+            "Git workflow mistakes that slow down small teams",
+            "Testing isn't optional: how I structure test suites",
+            "The real cost of premature optimization",
+            "Idempotency in APIs: why your POST endpoint needs it",
+            "Monolith vs microservices: a decision framework",
+            'What "production-ready" actually means in practice',
+          ],
+          ai: [
+            "RAG vs fine-tuning: when should you actually use each?",
+            "AI agents are not better chatbots — here's the difference",
+            "4 components every AI agent needs",
+            "Prompt engineering is just clear thinking",
+            "Building an AI workflow that turns requests into tasks",
+            "The hidden cost of embedding search at scale",
+            "Why most RAG systems fail in production",
+            "LLM memory: short-term vs long-term, explained",
+            "AI coding tools don't make bad developers good",
+            "Function calling is the real unlock for AI agents",
+          ],
+          career: [
+            "Why many junior developers know React but still can't get hired",
+            "A portfolio project that actually gets interviews",
+            "What I'd learn first if I started over in 2026",
+            "Freelancing as a developer: first 6 months lessons",
+            "Interview prep: beyond LeetCode",
+            "Open source changed how I write code",
+            "Real-world development vs tutorials: the gap",
+            "Communication skills get you promoted faster than code",
+            "How to ask for help without looking junior",
+            "The junior developer's guide to reading codebases",
+          ],
+          build: [
+            "I built an AI automation that turns requests into tasks",
+            "What I learned shipping a small SaaS in 30 days",
+            "A technical decision that cost me a week",
+            "Building Kodeem Labs: lessons from week 1",
+            "My failed experiment with a no-code AI builder",
+            "Why I chose FastAPI over Node for this project",
+            "Automating my client intake with an AI agent",
+            "What a real client project taught me about scope",
+            "Ship small, ship often: my product experiment log",
+            "The automation that saved me 5 hours per week",
+          ],
+          opinion: [
+            "Do junior developers really need to learn 5 programming languages?",
+            "Will AI replace junior developers — or change what they do?",
+            "Is LeetCode actually useful for software engineers?",
+            "MERN is popular, but is it still the best choice?",
+            "Certificates don't get you hired. Projects do.",
+            'Most "AI tools" are just wrappers. And that\'s fine.',
+            "Depth beats collecting technologies",
+            "Why I stopped chasing every new JS framework",
+            "The best developers I know write boring code",
+            "Remote work didn't kill mentorship. Bad onboarding did.",
+          ],
+          tutorial: [
+            "Build a REST API with FastAPI: step by step",
+            'Docker for developers: beyond "it works on my machine"',
+            "Authentication patterns: JWT vs sessions",
+            "PostgreSQL indexing: a practical walkthrough",
+            "Build an AI agent with Python in 30 minutes",
+            "React architecture: how I structure large apps",
+            "CI/CD with GitHub Actions: a minimal setup",
+            "Node.js error handling: patterns that scale",
+            "Building a webhook system from scratch",
+            "Caching strategies every backend dev should know",
+          ],
+        };
+
+        const IG_TITLES = {
+          swe: [
+            "7 backend mistakes juniors make",
+            "API security checklist",
+            "How REST APIs work",
+          ],
+          ai: [
+            "AI agent vs chatbot",
+            "How AI agents work",
+            "RAG explained in 6 slides",
+          ],
+          career: [
+            "Junior dev job hunt checklist",
+            "Portfolio project blueprint",
+            "Interview prep map",
+          ],
+          build: [
+            "Behind the build: Kodeem Labs",
+            "AI automation demo",
+            "Shipping a SaaS in 30 days",
+          ],
+          opinion: [
+            "Depth over collecting tech",
+            "Do juniors need 5 languages?",
+            "Stop chasing frameworks",
+          ],
+          tutorial: [
+            "FastAPI in 60 seconds",
+            "Docker basics explained",
+            "JWT vs sessions",
+          ],
+        };
+
+        const X_TITLES = {
+          swe: [
+            "Backend mistakes thread",
+            "Clean code checklist",
+            "DB indexing tips",
+          ],
+          ai: [
+            "AI agent architecture thread",
+            "RAG vs fine-tuning thread",
+            "LLM memory thread",
+          ],
+          career: [
+            "Junior dev advice thread",
+            "Portfolio thread",
+            "Interview tips",
+          ],
+          build: [
+            "Build log thread",
+            "SaaS lessons thread",
+            "Automation thread",
+          ],
+          opinion: [
+            "Unpopular dev opinion",
+            "Hot take thread",
+            "Depth vs breadth",
+          ],
+          tutorial: [
+            "FastAPI tutorial thread",
+            "Docker thread",
+            "Auth patterns thread",
+          ],
+        };
+
+        // ============================================================
+        // RULES
+        // ============================================================
+        const DAY_TO_PILLAR = {
+          1: "swe",
+          2: "career",
+          3: "ai",
+          4: "tutorial",
+          5: "build",
+          6: "opinion",
+          0: "rest",
+        };
+
+        // FORMAT MAP — the key distinction
+        // 'text'   = write only
+        // 'visual' = camera / design work
+        const PLATFORM_FORMAT = {
+          linkedin: { label: "TEXT", kind: "text" },
+          x: { label: "TEXT", kind: "text" },
+          threads: { label: "TEXT", kind: "text" },
+          medium: { label: "TEXT", kind: "text" },
+          devto: { label: "TEXT", kind: "text" },
+          hashnode: { label: "TEXT", kind: "text" },
+          reddit: { label: "TEXT", kind: "text" },
+          stackoverflow: { label: "TEXT", kind: "text" },
+          instagram: { label: "VISUAL", kind: "visual" }, // will override per task
+          youtube: { label: "VIDEO", kind: "visual" },
+        };
+
+        function formatForTask(task) {
+          // Instagram gets a specific format badge
+          if (task.platform === "instagram") {
+            if (task.format === "Carousel")
+              return { label: "CAROUSEL", kind: "visual" };
+            if (task.format === "Reel")
+              return { label: "REEL", kind: "visual" };
+            return { label: "VISUAL", kind: "visual" };
+          }
+          if (task.platform === "youtube") {
+            if (task.format === "Short")
+              return { label: "SHORT", kind: "visual" };
+            if (task.format === "Long video")
+              return { label: "VIDEO", kind: "visual" };
+            return { label: "VIDEO", kind: "visual" };
+          }
+          return (
+            PLATFORM_FORMAT[task.platform] || { label: "TEXT", kind: "text" }
+          );
+        }
+
+        function seededRandom(seed) {
+          const x = Math.sin(seed) * 10000;
+          return x - Math.floor(x);
+        }
+
+        // ============================================================
+        // MONTH PLAN
+        // ============================================================
+        const planCache = {};
+
+        function buildMonthPlan(year, month) {
+          const cacheKey = year + "-" + month;
+          if (planCache[cacheKey]) return planCache[cacheKey];
+
+          const daysInMonth = new Date(year, month + 1, 0).getDate();
+          const plan = {};
+          const pillarCounter = {};
+          const monthSeed = year * 100 + month;
+
+          for (let d = 1; d <= daysInMonth; d++) {
+            const date = new Date(year, month, d);
+            const dow = date.getDay();
+            const pillar = DAY_TO_PILLAR[dow];
+            const tasks = [];
+
+            if (pillar !== "rest") {
+              pillarCounter[pillar] = (pillarCounter[pillar] || 0) + 1;
+              const idx = pillarCounter[pillar];
+              const pool = TOPIC_POOLS[pillar];
+              const topic =
+                pool[
+                  (idx +
+                    Math.floor(seededRandom(monthSeed + idx) * pool.length)) %
+                    pool.length
+                ];
+
+              tasks.push({
+                platform: "linkedin",
+                format: "Post",
+                title: topic,
+              });
+
+              if (dow === 1 || dow === 3 || dow === 5) {
+                const igPool = IG_TITLES[pillar] || [];
+                const igTitle = igPool.length
+                  ? igPool[
+                      (idx +
+                        Math.floor(
+                          seededRandom(monthSeed + idx * 3) * igPool.length,
+                        )) %
+                        igPool.length
+                    ]
+                  : "Carousel";
+                tasks.push({
+                  platform: "instagram",
+                  format: dow === 3 || dow === 5 ? "Reel" : "Carousel",
+                  title: igTitle,
+                });
+              }
+
+              if (dow === 2 || dow === 4) {
+                const xPool = X_TITLES[pillar] || [];
+                const xTitle = xPool.length
+                  ? xPool[
+                      (idx +
+                        Math.floor(
+                          seededRandom(monthSeed + idx * 7) * xPool.length,
+                        )) %
+                        xPool.length
+                    ]
+                  : "Short post";
+                tasks.push({
+                  platform: "x",
+                  format: dow === 4 ? "Thread" : "Post",
+                  title: xTitle,
+                });
+              }
+
+              if (dow === 2 || dow === 6) {
+                tasks.push({
+                  platform: "threads",
+                  format: "Post",
+                  title: dow === 6 ? "Developer diary" : "Quick dev thought",
+                });
+              }
+
+              if (dow === 6) {
+                tasks.push({
+                  platform: "reddit",
+                  format: "Contribution",
+                  title: "Answer a question in r/webdev or r/ExperiencedDevs",
+                });
+              }
+            }
+
+            if (dow === 0) {
+              tasks.push({
+                platform: "threads",
+                format: "Planning",
+                title: "Plan next week · schedule posts",
+              });
+            }
+
+            if (d === 3) {
+              tasks.unshift({
+                platform: "medium",
+                format: "Blog #1",
+                title: "How to Become a Job-Ready Software Engineer",
+              });
+              tasks.push({
+                platform: "devto",
+                format: "Cross-post",
+                title: "Dev version of Blog #1",
+              });
+            }
+            if (d === 13) {
+              tasks.unshift({
+                platform: "medium",
+                format: "Blog #2",
+                title: "Building Production-Ready REST APIs",
+              });
+              tasks.push({
+                platform: "hashnode",
+                format: "Cross-post",
+                title: "Technical version of Blog #2",
+              });
+            }
+            if (d === 23) {
+              tasks.unshift({
+                platform: "medium",
+                format: "Blog #3",
+                title: "AI Agents Explained: Architecture & Use Cases",
+              });
+              tasks.push({
+                platform: "linkedin",
+                format: "Repurpose",
+                title: "5 lessons from building AI agents",
+              });
+              tasks.push({
+                platform: "instagram",
+                format: "Carousel",
+                title: "AI agents in 6 slides",
+              });
+              tasks.push({
+                platform: "x",
+                format: "Thread",
+                title: "AI agents explained in a thread",
+              });
+              tasks.push({
+                platform: "devto",
+                format: "Cross-post",
+                title: "Building AI agents: implementation guide",
+              });
+              tasks.push({
+                platform: "hashnode",
+                format: "Cross-post",
+                title: "AI agent architecture deep dive",
+              });
+              tasks.push({
+                platform: "reddit",
+                format: "Contribution",
+                title: 'Answer "AI agent vs LLM" questions',
+              });
+            }
+            if (d === 20) {
+              tasks.push({
+                platform: "youtube",
+                format: "Long video",
+                title: "AI Agents Explained in 10 Minutes",
+              });
+            }
+            if (d === 27) {
+              tasks.push({
+                platform: "youtube",
+                format: "Short",
+                title: "AI agents in 60 seconds",
+              });
+            }
+            if (d === 14) {
+              tasks.push({
+                platform: "reddit",
+                format: "Contribution",
+                title: "Mid-month check-in",
+              });
+            }
+            if (d === 29) {
+              tasks.push({
+                platform: "reddit",
+                format: "Contribution",
+                title: "End-of-month discussion",
+              });
+            }
+            if (d === 30) {
+              tasks.push({
+                platform: "linkedin",
+                format: "Recap",
+                title: "Month in review",
+              });
+            }
+            if (dow === 1) {
+              tasks.push({
+                platform: "stackoverflow",
+                format: "Answers",
+                title: "Answer 2–5 questions",
+              });
+            }
+
+            plan[d] = tasks;
+          }
+
+          planCache[cacheKey] = plan;
+          return plan;
+        }
+
+        // ============================================================
+        // STATE
+        // ============================================================
+        let currentYear = new Date().getFullYear();
+        let currentMonth = new Date().getMonth();
+
+        const STORAGE_KEY = "content-calendar-v5";
+
+        let checks = loadChecksFromStorage();
+
+        function loadChecksFromStorage() {
+          try {
+            return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+          } catch (e) {
+            return {};
+          }
+        }
+
+        function persistChecks() {
+          try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(checks));
+          } catch (e) {
+            /* ignore */
+          }
+        }
+
+        function taskKey(year, month, day, platform, index) {
+          return year + "-" + month + "-" + day + "-" + platform + "-" + index;
+        }
+
+        // ============================================================
+        // RENDER
+        // ============================================================
+        const calendarGrid = document.getElementById("calendarGrid");
+        const monthDisplay = document.getElementById("monthDisplay");
+        const monthSelect = document.getElementById("monthSelect");
+        const yearSelect = document.getElementById("yearSelect");
+
+        const MONTH_NAMES = [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December",
+        ];
+        const MONTH_SHORT = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ];
+
+        const PLATFORM_LABEL = {
+          medium: "Medium",
+          linkedin: "LinkedIn",
+          instagram: "Instagram",
+          x: "X",
+          threads: "Threads",
+          devto: "Dev.to",
+          hashnode: "Hashnode",
+          reddit: "Reddit",
+          stackoverflow: "Stack Overflow",
+          youtube: "YouTube",
+        };
+
+        const CHECK_ICON =
+          '<svg viewBox="0 0 10 10"><path d="M1.5 5.2l2.2 2.2 4.8-4.8"/></svg>';
+
+        function buildSelectors() {
+          MONTH_NAMES.forEach(function (name, i) {
+            const o = document.createElement("option");
+            o.value = i;
+            o.textContent = name;
+            monthSelect.appendChild(o);
+          });
+          const now = new Date().getFullYear();
+          for (let y = now - 1; y <= now + 3; y++) {
+            const o = document.createElement("option");
+            o.value = y;
+            o.textContent = y;
+            yearSelect.appendChild(o);
+          }
+          monthSelect.value = currentMonth;
+          yearSelect.value = currentYear;
+        }
+
+        function renderCalendar(year, month) {
+          monthDisplay.textContent = MONTH_SHORT[month] + " " + year;
+          monthSelect.value = month;
+          yearSelect.value = year;
+
+          calendarGrid.innerHTML = "";
+
+          ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].forEach(
+            function (w) {
+              const el = document.createElement("div");
+              el.className = "weekday";
+              el.textContent = w;
+              calendarGrid.appendChild(el);
+            },
+          );
+
+          const firstDow = new Date(year, month, 1).getDay();
+          const offset = (firstDow + 6) % 7;
+          const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+          for (let i = 0; i < offset; i++) {
+            const e = document.createElement("div");
+            e.className = "day empty";
+            calendarGrid.appendChild(e);
+          }
+
+          const today = new Date();
+          const isCurrentMonth =
+            today.getFullYear() === year && today.getMonth() === month;
+
+          const plan = buildMonthPlan(year, month);
+
+          for (let d = 1; d <= daysInMonth; d++) {
+            const dow = new Date(year, month, d).getDay();
+            const dayDiv = document.createElement("div");
+            dayDiv.className = "day";
+            if (isCurrentMonth && today.getDate() === d)
+              dayDiv.classList.add("today");
+
+            const header = document.createElement("div");
+            header.className = "day-header";
+
+            const numSpan = document.createElement("span");
+            numSpan.className = "day-number";
+            numSpan.textContent = d;
+            header.appendChild(numSpan);
+
+            const marks = [];
+            if (d === 3 || d === 13 || d === 23) marks.push("MED");
+            if (d === 20 || d === 27) marks.push("YT");
+            if (d === 26) marks.push("DEV");
+
+            if (marks.length) {
+              const meta = document.createElement("span");
+              meta.className = "day-meta";
+              marks.forEach(function (m) {
+                const badge = document.createElement("span");
+                badge.className = "mark";
+                badge.textContent = m;
+                meta.appendChild(badge);
+              });
+              header.appendChild(meta);
+            }
+
+            dayDiv.appendChild(header);
+
+            const taskList = document.createElement("div");
+            taskList.className = "task-list";
+
+            const tasks = plan[d] || [];
+
+            tasks.forEach(function (task, idx) {
+              const key = taskKey(year, month, d, task.platform, idx);
+              const done = !!checks[key];
+              const fmt = formatForTask(task);
+
+              const taskEl = document.createElement("div");
+              taskEl.className = "task" + (done ? " completed" : "");
+              taskEl.dataset.key = key;
+
+              const box = document.createElement("span");
+              box.className = "box";
+              box.innerHTML = CHECK_ICON;
+
+              const body = document.createElement("div");
+              body.className = "task-body";
+
+              const metaRow = document.createElement("div");
+              metaRow.className = "task-meta";
+
+              const platformSpan = document.createElement("span");
+              platformSpan.className = "task-platform";
+              platformSpan.textContent =
+                PLATFORM_LABEL[task.platform] || task.platform;
+
+              const formatSpan = document.createElement("span");
+              formatSpan.className = "task-format " + fmt.kind;
+              formatSpan.textContent = fmt.label;
+
+              metaRow.appendChild(platformSpan);
+              metaRow.appendChild(formatSpan);
+
+              const titleSpan = document.createElement("span");
+              titleSpan.className = "task-title";
+              titleSpan.textContent = task.title;
+
+              body.appendChild(metaRow);
+              body.appendChild(titleSpan);
+
+              taskEl.appendChild(box);
+              taskEl.appendChild(body);
+
+              taskEl.addEventListener("click", function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+
+                if (checks[key]) {
+                  delete checks[key];
+                  taskEl.classList.remove("completed");
+                } else {
+                  checks[key] = true;
+                  taskEl.classList.add("completed");
+                }
+                persistChecks();
+              });
+
+              taskList.appendChild(taskEl);
+            });
+
+            dayDiv.appendChild(taskList);
+            calendarGrid.appendChild(dayDiv);
+          }
+
+          const totalCells = offset + daysInMonth;
+          const trail = (7 - (totalCells % 7)) % 7;
+          for (let i = 0; i < trail; i++) {
+            const e = document.createElement("div");
+            e.className = "day empty";
+            calendarGrid.appendChild(e);
+          }
+        }
+
+        // ============================================================
+        // NAVIGATION
+        // ============================================================
+        document
+          .getElementById("prevMonthBtn")
+          .addEventListener("click", function () {
+            currentMonth--;
+            if (currentMonth < 0) {
+              currentMonth = 11;
+              currentYear--;
+            }
+            renderCalendar(currentYear, currentMonth);
+          });
+
+        document
+          .getElementById("nextMonthBtn")
+          .addEventListener("click", function () {
+            currentMonth++;
+            if (currentMonth > 11) {
+              currentMonth = 0;
+              currentYear++;
+            }
+            renderCalendar(currentYear, currentMonth);
+          });
+
+        monthSelect.addEventListener("change", function (e) {
+          currentMonth = parseInt(e.target.value, 10);
+          renderCalendar(currentYear, currentMonth);
+        });
+
+        yearSelect.addEventListener("change", function (e) {
+          currentYear = parseInt(e.target.value, 10);
+          renderCalendar(currentYear, currentMonth);
+        });
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        buildSelectors();
+        renderCalendar(currentYear, currentMonth);
+      })();
+    </script>
+  </body>
+</html>
