@@ -63,11 +63,12 @@
         .header {
             margin-bottom: 32px;
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items:flex-end ;
             gap: 4px;
         }
 
-        .header h1 {
+        .header .texts h1 {
             font-size: 1.5rem;
             font-weight: 600;
             letter-spacing: -0.025em;
@@ -75,10 +76,15 @@
             line-height: 1.2;
         }
 
-        .header p {
+        .header .texts p {
             font-size: 0.875rem;
             color: var(--muted-foreground);
             letter-spacing: -0.006em;
+        }
+
+        .header .buttons {
+            display: flex;
+            gap: 10px;
         }
 
         /* ========== Card ========== */
@@ -572,7 +578,24 @@
                 padding: 24px 16px;
             }
 
-            .header h1 {
+            .header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .header .texts {
+                width: 100%;
+            }
+
+            .header .buttons {
+                width: 100%;
+            }
+
+            .header .buttons button {
+                width: 50%;
+            }
+
+            .header .texts h1 {
                 font-size: 1.25rem;
             }
 
@@ -614,8 +637,18 @@
 <body>
     <div class="app">
         <div class="header">
-            <h1>Social Calendar</h1>
-            <p>Plan, schedule, and track your social media content.</p>
+            <div class="texts">
+                <h1>Social Calendar</h1>
+                <p>Plan, schedule, and track your social media content.</p>
+            </div>
+            <div class="buttons">
+                <a href="/board.html">
+                    <button class="btn btn-primary">Board</button>
+                </a>
+                <a href="/content-board.html">
+                    <button class="btn btn-primary">Content Board</button>
+                </a>
+            </div>
         </div>
 
         <div class="card">
