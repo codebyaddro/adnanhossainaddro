@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adnan Hossain Addro | To-Do Board</title>
+    <link rel="icon" type="image/png" href="/assets/favicons/favicon.svg" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/png" href="/assets/favicons/favicon.ico" media="(prefers-color-scheme: dark)">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+        }
+
+        :root {
+            /* shadcn-style tokens — black & white theme */
+            --background: #ffffff;
+            --foreground: #09090b;
+            --card: #ffffff;
+            --card-foreground: #09090b;
+            --popover: #ffffff;
+            --popover-foreground: #09090b;
+            --primary: #18181b;
+            --primary-foreground: #fafafa;
+            --secondary: #f4f4f5;
+            --secondary-foreground: #18181b;
+            --muted: #f4f4f5;
+            --muted-foreground: #71717a;
+            --accent: #f4f4f5;
+            --accent-foreground: #18181b;
+            --destructive: #ef4444;
+            --destructive-foreground: #fafafa;
+            --border: #e4e4e7;
+            --input: #e4e4e7;
+            --ring: #18181b;
+
+            --radius: 0.5rem;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--foreground);
+            min-height: 100vh;
+            padding: 48px 24px;
+            display: flex;
+            justify-content: center;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 1180px;
+        }
+
+        /* ========== Header ========== */
+        .header {
+            margin-bottom: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.025em;
+            color: var(--foreground);
+            line-height: 1.2;
+        }
+
+        .header p {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+            letter-spacing: -0.006em;
+        }
+
+        /* ========== Card ========== */
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+        }
+
+        .card-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            letter-spacing: -0.006em;
+            color: var(--foreground);
+        }
+
+        .card-description {
+            font-size: 0.8125rem;
+            color: var(--muted-foreground);
+            margin-top: 2px;
+        }
+
+        .card-content {
+            padding: 20px 24px;
+        }
+
+        /* ========== Form ========== */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1.5fr 0.9fr 1fr auto;
+            gap: 12px;
+            align-items: end;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .label {
+            font-size: 0.8125rem;
+            font-weight: 500;
+            line-height: 1;
+            color: var(--foreground);
+            letter-spacing: -0.006em;
+        }
+
+        .input,
+        .select {
+            display: flex;
+            height: 36px;
+            width: 100%;
+            border-radius: calc(var(--radius) - 2px);
+            border: 1px solid var(--input);
+            background: transparent;
+            padding: 0 12px;
+            font-size: 0.875rem;
+            color: var(--foreground);
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+            font-family: inherit;
+            outline: none;
+            letter-spacing: -0.006em;
+        }
+
+        .input::placeholder {
+            color: var(--muted-foreground);
+        }
+
+        .input:focus-visible,
+        .select:focus-visible {
+            border-color: var(--ring);
+            box-shadow: 0 0 0 3px rgba(9, 9, 11, 0.08);
+        }
+
+        .select {
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2371717a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            padding-right: 32px;
+            cursor: pointer;
+        }
+
+        .input[type="date"] {
+            cursor: pointer;
+        }
+
+        .input[type="date"]::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+            opacity: 0.4;
+            filter: grayscale(1);
+            margin-right: -4px;
+        }
+
+        .input[type="date"]::-webkit-calendar-picker-indicator:hover {
+            opacity: 0.8;
+        }
+
+        /* ========== Buttons (shadcn variants) ========== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            white-space: nowrap;
+            border-radius: calc(var(--radius) - 2px);
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: -0.006em;
+            transition: all 0.15s ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+            outline: none;
+            height: 36px;
+            padding: 0 16px;
+            font-family: inherit;
+        }
+
+        .btn:focus-visible {
+            box-shadow: 0 0 0 3px rgba(9, 9, 11, 0.15);
+        }
+
+        .btn:disabled {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--primary-foreground);
+            border-color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: #27272a;
+            border-color: #27272a;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--foreground);
+            border-color: var(--input);
+        }
+
+        .btn-outline:hover {
+            background: var(--accent);
+            color: var(--accent-foreground);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--foreground);
+            border-color: transparent;
+        }
+
+        .btn-ghost:hover {
+            background: var(--accent);
+            color: var(--accent-foreground);
+        }
+
+        /* ========== Month bar ========== */
+        .month-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 32px 0 16px;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .month-label {
+            font-size: 1.125rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--foreground);
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: calc(var(--radius) - 2px);
+            border: 1px solid var(--input);
+            background: transparent;
+            color: var(--foreground);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            outline: none;
+            padding: 0;
+        }
+
+        .nav-btn:hover {
+            background: var(--accent);
+            color: var(--accent-foreground);
+        }
+
+        .nav-btn:focus-visible {
+            box-shadow: 0 0 0 3px rgba(9, 9, 11, 0.15);
+        }
+
+        .nav-btn svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* ========== Calendar ========== */
+        .calendar {
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: var(--card);
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+        }
+
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            background: var(--muted);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .weekdays div {
+            padding: 10px 8px;
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--muted-foreground);
+            letter-spacing: 0;
+        }
+
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+        }
+
+        .day-cell {
+            min-height: 130px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            background: var(--card);
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            transition: background 0.1s ease;
+        }
+
+        .day-cell:nth-child(7n) {
+            border-right: none;
+        }
+
+        .day-cell:nth-last-child(-n+7) {
+            border-bottom: none;
+        }
+
+        .day-cell.other-month {
+            background: #fafafa;
+        }
+
+        .day-cell.other-month .day-number {
+            color: var(--muted-foreground);
+        }
+
+        .day-cell.today .day-number {
+            background: var(--primary);
+            color: var(--primary-foreground);
+        }
+
+        .day-number {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--foreground);
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: calc(var(--radius) - 4px);
+            letter-spacing: -0.006em;
+        }
+
+        /* ========== Tasks ========== */
+        .task-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            overflow-y: auto;
+            max-height: 96px;
+            scrollbar-width: thin;
+            padding-right: 2px;
+        }
+
+        .task-list::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        .task-list::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+
+        .task-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 6px 8px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: calc(var(--radius) - 4px);
+            transition: all 0.15s ease;
+            cursor: default;
+        }
+
+        .task-item:hover {
+            background: var(--accent);
+        }
+
+        .task-item.done {
+            background: var(--muted);
+            opacity: 0.75;
+        }
+
+        .task-item.done .task-title {
+            text-decoration: line-through;
+            color: var(--muted-foreground);
+        }
+
+        .task-item.done .task-platform {
+            color: var(--muted-foreground);
+        }
+
+        /* shadcn-style checkbox */
+        .task-check {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            border: 1px solid var(--input);
+            border-radius: 4px;
+            cursor: pointer;
+            flex-shrink: 0;
+            margin-top: 1px;
+            position: relative;
+            transition: all 0.15s ease;
+            background: transparent;
+            outline: none;
+        }
+
+        .task-check:hover {
+            border-color: var(--ring);
+        }
+
+        .task-check:focus-visible {
+            box-shadow: 0 0 0 3px rgba(9, 9, 11, 0.15);
+        }
+
+        .task-check:checked {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .task-check:checked::after {
+            content: '';
+            position: absolute;
+            left: 3.5px;
+            top: 1px;
+            width: 3.5px;
+            height: 7px;
+            border: solid var(--primary-foreground);
+            border-width: 0 1.5px 1.5px 0;
+            transform: rotate(45deg);
+        }
+
+        .task-content {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            line-height: 1.3;
+        }
+
+        .task-platform {
+            font-size: 0.6875rem;
+            font-weight: 500;
+            color: var(--foreground);
+            letter-spacing: -0.006em;
+            word-break: break-word;
+        }
+
+        .task-title {
+            font-size: 0.75rem;
+            color: var(--muted-foreground);
+            word-break: break-word;
+            letter-spacing: -0.006em;
+            line-height: 1.35;
+        }
+
+        .task-type {
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.625rem;
+            font-weight: 500;
+            color: var(--muted-foreground);
+            padding: 1px 6px;
+            border: 1px solid var(--border);
+            border-radius: 9999px;
+            width: fit-content;
+            margin-top: 2px;
+            letter-spacing: 0;
+            text-transform: capitalize;
+        }
+
+        .empty-day {
+            font-size: 0.75rem;
+            color: var(--muted-foreground);
+            text-align: center;
+            padding: 8px 0;
+            opacity: 0.5;
+            user-select: none;
+        }
+
+        /* ========== Footer ========== */
+        .footer {
+            margin-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-text {
+            font-size: 0.75rem;
+            color: var(--muted-foreground);
+            letter-spacing: -0.006em;
+        }
+
+        .footer-text strong {
+            color: var(--foreground);
+            font-weight: 500;
+        }
+
+        .separator {
+            display: inline-block;
+            width: 1px;
+            height: 10px;
+            background: var(--border);
+            margin: 0 10px;
+            vertical-align: middle;
+        }
+
+        /* ========== Responsive ========== */
+        @media (max-width: 900px) {
+            .form-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .form-grid .btn-add {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 24px 16px;
+            }
+
+            .header h1 {
+                font-size: 1.25rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .day-cell {
+                min-height: 92px;
+                padding: 5px;
+            }
+
+            .day-number {
+                font-size: 0.6875rem;
+                width: 20px;
+                height: 20px;
+            }
+
+            .task-platform {
+                font-size: 0.625rem;
+            }
+
+            .task-title {
+                font-size: 0.6875rem;
+            }
+
+            .task-type {
+                display: none;
+            }
+
+            .task-item {
+                padding: 4px 6px;
+                gap: 6px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <div class="header">
+            <h1>Social Calendar</h1>
+            <p>Plan, schedule, and track your social media content.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">New post</div>
+                <div class="card-description">Add a scheduled post to your calendar.</div>
+            </div>
+            <div class="card-content">
+                <div class="form-grid">
+                    <div class="field">
+                        <label class="label" for="platformInput">Platform</label>
+                        <input class="input" type="text" id="platformInput" placeholder="Instagram" list="platforms"
+                            autocomplete="off">
+                        <datalist id="platforms">
+                            <option value="Instagram">
+                            <option value="Twitter / X">
+                            <option value="Facebook">
+                            <option value="LinkedIn">
+                            <option value="TikTok">
+                            <option value="YouTube">
+                            <option value="Pinterest">
+                            <option value="Threads">
+                        </datalist>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="titleInput">Post title</label>
+                        <input class="input" type="text" id="titleInput" placeholder="Behind the scenes"
+                            autocomplete="off">
+                    </div>
+                    <div class="field">
+                        <label class="label" for="typeSelect">Type</label>
+                        <select class="select" id="typeSelect">
+                            <option value="Text">Text</option>
+                            <option value="Image">Image</option>
+                            <option value="Video">Video</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="dateInput">Date</label>
+                        <input class="input" type="date" id="dateInput">
+                    </div>
+                    <button class="btn btn-primary btn-add" id="addTaskBtn">Add post</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="month-bar">
+            <div class="month-label" id="monthTitle"></div>
+            <div class="nav-controls">
+                <button class="nav-btn" id="prevMonthBtn" aria-label="Previous month">
+                    <svg viewBox="0 0 24 24">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                <button class="nav-btn" id="nextMonthBtn" aria-label="Next month">
+                    <svg viewBox="0 0 24 24">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+                <button class="btn btn-outline" id="todayBtn">Today</button>
+            </div>
+        </div>
+
+        <div class="calendar">
+            <div class="weekdays">
+                <div>Sun</div>
+                <div>Mon</div>
+                <div>Tue</div>
+                <div>Wed</div>
+                <div>Thu</div>
+                <div>Fri</div>
+                <div>Sat</div>
+            </div>
+            <div class="days-grid" id="daysGrid"></div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-text">Click a checkbox to <strong>mark done</strong> or <strong>undo</strong></div>
+            <div class="footer-text">All data saved <span class="separator"></span> <strong>locally</strong> in your
+                browser</div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            'use strict';
+
+            var STORAGE_KEY = 'social_calendar_tasks_v3';
+
+            var tasks = [];
+            var currentYear, currentMonth;
+
+            var daysGrid = document.getElementById('daysGrid');
+            var monthTitle = document.getElementById('monthTitle');
+            var platformInput = document.getElementById('platformInput');
+            var titleInput = document.getElementById('titleInput');
+            var typeSelect = document.getElementById('typeSelect');
+            var dateInput = document.getElementById('dateInput');
+            var addBtn = document.getElementById('addTaskBtn');
+            var prevBtn = document.getElementById('prevMonthBtn');
+            var nextBtn = document.getElementById('nextMonthBtn');
+            var todayBtn = document.getElementById('todayBtn');
+
+            function generateId() {
+                return 'task-' + Date.now() + '-' + Math.floor(Math.random() * 1000000);
+            }
+
+            function formatDateKey(year, month, day) {
+                var mm = String(month + 1).padStart(2, '0');
+                var dd = String(day).padStart(2, '0');
+                return year + '-' + mm + '-' + dd;
+            }
+
+            function todayDateString() {
+                var d = new Date();
+                return formatDateKey(d.getFullYear(), d.getMonth(), d.getDate());
+            }
+
+            function loadTasks() {
+                try {
+                    var stored = localStorage.getItem(STORAGE_KEY);
+                    if (stored) {
+                        var parsed = JSON.parse(stored);
+                        if (Array.isArray(parsed)) {
+                            tasks = parsed.filter(function (t) {
+                                return t && t.id && t.date && t.platform && t.title && t.type;
+                            });
+                            return;
+                        }
+                    }
+                    tasks = [];
+                } catch (e) {
+                    console.error('Error loading tasks:', e);
+                    tasks = [];
+                }
+            }
+
+            function saveTasks() {
+                try {
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+                } catch (e) {
+                    console.error('Error saving tasks:', e);
+                }
+            }
+
+            function setCurrentMonth(year, month) {
+                currentYear = year;
+                currentMonth = month;
+                renderCalendar();
+            }
+
+            function goToToday() {
+                var now = new Date();
+                setCurrentMonth(now.getFullYear(), now.getMonth());
+            }
+
+            function toggleTaskDone(taskId) {
+                for (var i = 0; i < tasks.length; i++) {
+                    if (tasks[i].id === taskId) {
+                        tasks[i].done = !tasks[i].done;
+                        break;
+                    }
+                }
+                saveTasks();
+                renderCalendar();
+            }
+
+            function renderCalendar() {
+                if (currentYear === undefined || currentMonth === undefined) {
+                    var now = new Date();
+                    currentYear = now.getFullYear();
+                    currentMonth = now.getMonth();
+                }
+
+                var monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                    'July', 'August', 'September', 'October', 'November', 'December'];
+                monthTitle.textContent = monthNames[currentMonth] + ' ' + currentYear;
+
+                var firstDay = new Date(currentYear, currentMonth, 1).getDay();
+                var daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+                var prevMonthDays = firstDay;
+                var prevMonthDate = new Date(currentYear, currentMonth, 0);
+                var prevMonthTotalDays = prevMonthDate.getDate();
+                var totalCells = 42;
+                var nextMonthDays = totalCells - (prevMonthDays + daysInMonth);
+
+                daysGrid.innerHTML = '';
+                var todayKey = todayDateString();
+
+                function createDayCell(dayNumber, monthOffset, yearForCell, monthForCell, dateKey) {
+                    var cell = document.createElement('div');
+                    cell.className = 'day-cell';
+                    if (monthOffset !== 0) cell.classList.add('other-month');
+                    if (dateKey === todayKey) cell.classList.add('today');
+
+                    var dayNumDiv = document.createElement('div');
+                    dayNumDiv.className = 'day-number';
+                    dayNumDiv.textContent = dayNumber;
+                    cell.appendChild(dayNumDiv);
+
+                    var taskListDiv = document.createElement('div');
+                    taskListDiv.className = 'task-list';
+
+                    var dayTasks = tasks.filter(function (t) { return t.date === dateKey; });
+
+                    if (dayTasks.length === 0) {
+                        var emptyMsg = document.createElement('div');
+                        emptyMsg.className = 'empty-day';
+                        emptyMsg.textContent = '—';
+                        taskListDiv.appendChild(emptyMsg);
+                    } else {
+                        dayTasks.forEach(function (task) {
+                            var taskEl = document.createElement('div');
+                            taskEl.className = 'task-item' + (task.done ? ' done' : '');
+
+                            var checkbox = document.createElement('input');
+                            checkbox.type = 'checkbox';
+                            checkbox.className = 'task-check';
+                            checkbox.checked = task.done;
+                            checkbox.setAttribute('data-task-id', task.id);
+                            checkbox.addEventListener('change', (function (tid) {
+                                return function (e) {
+                                    e.stopPropagation();
+                                    toggleTaskDone(tid);
+                                };
+                            })(task.id));
+
+                            var contentDiv = document.createElement('div');
+                            contentDiv.className = 'task-content';
+
+                            var platformSpan = document.createElement('div');
+                            platformSpan.className = 'task-platform';
+                            platformSpan.textContent = task.platform;
+
+                            var titleSpan = document.createElement('div');
+                            titleSpan.className = 'task-title';
+                            titleSpan.textContent = task.title;
+
+                            var typeSpan = document.createElement('span');
+                            typeSpan.className = 'task-type';
+                            typeSpan.textContent = task.type;
+
+                            contentDiv.appendChild(platformSpan);
+                            contentDiv.appendChild(titleSpan);
+                            contentDiv.appendChild(typeSpan);
+
+                            taskEl.appendChild(checkbox);
+                            taskEl.appendChild(contentDiv);
+
+                            taskListDiv.appendChild(taskEl);
+                        });
+                    }
+
+                    cell.appendChild(taskListDiv);
+                    return cell;
+                }
+
+                var i, day, dateKey, yearForCell, monthForCell;
+
+                for (i = prevMonthDays - 1; i >= 0; i--) {
+                    day = prevMonthTotalDays - i;
+                    yearForCell = currentYear;
+                    monthForCell = currentMonth - 1;
+                    if (monthForCell < 0) {
+                        monthForCell = 11;
+                        yearForCell = currentYear - 1;
+                    }
+                    dateKey = formatDateKey(yearForCell, monthForCell, day);
+                    daysGrid.appendChild(createDayCell(day, -1, yearForCell, monthForCell, dateKey));
+                }
+
+                for (day = 1; day <= daysInMonth; day++) {
+                    dateKey = formatDateKey(currentYear, currentMonth, day);
+                    daysGrid.appendChild(createDayCell(day, 0, currentYear, currentMonth, dateKey));
+                }
+
+                for (day = 1; day <= nextMonthDays; day++) {
+                    yearForCell = currentYear;
+                    monthForCell = currentMonth + 1;
+                    if (monthForCell > 11) {
+                        monthForCell = 0;
+                        yearForCell = currentYear + 1;
+                    }
+                    dateKey = formatDateKey(yearForCell, monthForCell, day);
+                    daysGrid.appendChild(createDayCell(day, 1, yearForCell, monthForCell, dateKey));
+                }
+            }
+
+            function addTask() {
+                var platform = platformInput.value.trim();
+                var title = titleInput.value.trim();
+                var type = typeSelect.value;
+                var dateVal = dateInput.value;
+
+                if (!platform || !title || !dateVal) {
+                    alert('Please fill in platform, title and date.');
+                    return;
+                }
+
+                if (!/^\d{4}-\d{2}-\d{2}$/.test(dateVal)) {
+                    alert('Invalid date format.');
+                    return;
+                }
+
+                tasks.push({
+                    id: generateId(),
+                    platform: platform,
+                    title: title,
+                    type: type,
+                    date: dateVal,
+                    done: false
+                });
+
+                saveTasks();
+
+                platformInput.value = '';
+                titleInput.value = '';
+                typeSelect.value = 'Text';
+
+                var today = new Date();
+                dateInput.value = today.getFullYear() + '-' +
+                    String(today.getMonth() + 1).padStart(2, '0') + '-' +
+                    String(today.getDate()).padStart(2, '0');
+
+                renderCalendar();
+                platformInput.focus();
+            }
+
+            function init() {
+                loadTasks();
+
+                var now = new Date();
+                currentYear = now.getFullYear();
+                currentMonth = now.getMonth();
+                dateInput.value = now.getFullYear() + '-' +
+                    String(now.getMonth() + 1).padStart(2, '0') + '-' +
+                    String(now.getDate()).padStart(2, '0');
+
+                renderCalendar();
+
+                addBtn.addEventListener('click', addTask);
+
+                titleInput.addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') addTask();
+                });
+                platformInput.addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') addTask();
+                });
+
+                prevBtn.addEventListener('click', function () {
+                    var newMonth = currentMonth - 1;
+                    var newYear = currentYear;
+                    if (newMonth < 0) { newMonth = 11; newYear--; }
+                    setCurrentMonth(newYear, newMonth);
+                });
+
+                nextBtn.addEventListener('click', function () {
+                    var newMonth = currentMonth + 1;
+                    var newYear = currentYear;
+                    if (newMonth > 11) { newMonth = 0; newYear++; }
+                    setCurrentMonth(newYear, newMonth);
+                });
+
+                todayBtn.addEventListener('click', goToToday);
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+        })();
+    </script>
+</body>
+
+</html>
