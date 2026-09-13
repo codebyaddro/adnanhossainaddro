@@ -1,1083 +1,372 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Adnan Hossain Addro | Board</title>
-    <link rel="icon" type="image/png" href="/assets/favicons/favicon.svg" media="(prefers-color-scheme: light)">
-    <link rel="icon" type="image/png" href="/assets/favicons/favicon.ico" media="(prefers-color-scheme: dark)">
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Adnan Hossain Addro | Content Board</title>
+  <link rel="icon" type="image/png" href="/assets/favicons/favicon.svg" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" href="/assets/favicons/favicon.ico" media="(prefers-color-scheme: dark)">
+  <style>
+    :root {
+      --border: #ddd;
+      --muted: #666;
+      --bg: #fafafa;
+      --card: #fff;
+      --dark: #111
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: #111;
+      font-family: Arial, sans-serif
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px
+    }
+
+    h1 {
+      font-size: 21px;
+      margin: 0
+    }
+
+    button,
+    select {
+      font: inherit;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 7px 10px;
+      cursor: pointer
+    }
+
+    .controls {
+      display: flex;
+      gap: 6px;
+      align-items: center
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-bottom: 12px
+    }
+
+    .stat {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 10px;
+      border-radius: 5px
+    }
+
+    .stat b {
+      display: block;
+      font-size: 18px
+    }
+
+    .stat span {
+      font-size: 11px;
+      color: var(--muted)
+    }
+
+    .calendar-wrap {
+      overflow-x: auto
+    }
+
+    .calendar {
+      min-width: 900px;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      border-top: 1px solid var(--border);
+      border-left: 1px solid var(--border);
+      background: #fff
+    }
+
+    .dow {
+      padding: 8px;
+      font-size: 11px;
+      font-weight: bold;
+      background: #f0f0f0;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border)
+    }
+
+    .day {
+      min-height: 145px;
+      padding: 7px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      vertical-align: top
+    }
+
+    .day.other {
+      background: #f7f7f7;
+      color: #aaa
+    }
+
+    .day.today {
+      outline: 2px solid #111;
+      outline-offset: -2px
+    }
+
+    .num {
+      font-weight: bold;
+      font-size: 13px;
+      margin-bottom: 6px
+    }
+
+    .task {
+      background: #f4f4f4;
+      border-left: 3px solid #111;
+      padding: 5px;
+      margin: 4px 0;
+      font-size: 10px;
+      line-height: 1.3;
+      cursor: pointer
+    }
+
+    .task.done {
+      opacity: .45;
+      text-decoration: line-through
+    }
+
+    .task strong {
+      display: block;
+      font-size: 10px
+    }
+
+    .task small {
+      color: #555
+    }
+
+    .task.medium {
+      background: #e9e9e9
+    }
+
+    .footer {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 11px
+    }
+
+    .rules {
+      margin-top: 18px;
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 14px;
+      border-radius: 5px
+    }
+
+    .rules h2 {
+      font-size: 15px;
+      margin: 0 0 10px
+    }
+
+    .rules ul {
+      margin: 0;
+      padding-left: 18px;
+      font-size: 12px;
+      line-height: 1.7
+    }
+
+    @media(max-width:700px) {
+      .wrap {
+        padding: 10px
       }
 
-      :root {
-        --bg: #ffffff;
-        --panel: #ffffff;
-        --border: #e5e5e5;
-        --border-strong: #111111;
-        --text: #111111;
-        --muted: #888888;
-        --faint: #f5f5f5;
-        --done: #cccccc;
-      }
-
-      body {
-        font-family:
-          -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Helvetica,
-          Arial, sans-serif;
-        background: var(--bg);
-        color: var(--text);
-        padding: 32px 24px 48px;
-        font-size: 13px;
-        line-height: 1.45;
-        -webkit-font-smoothing: antialiased;
-      }
-
-      .container {
-        max-width: 1280px;
-        margin: 0 auto;
-      }
-
-      /* ---------- header ---------- */
-      .header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-        padding-bottom: 20px;
-        margin-bottom: 20px;
-        border-bottom: 1px solid var(--border);
-        flex-wrap: wrap;
-      }
-
-      .title {
-        font-size: 15px;
-        font-weight: 600;
-        letter-spacing: -0.01em;
-      }
-
-      .title span {
-        color: var(--muted);
-        font-weight: 400;
-        margin-left: 8px;
-        font-size: 12px;
-      }
-
-      .controls {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-      }
-
-      .controls button,
-      .controls select {
-        appearance: none;
-        background: transparent;
-        border: 1px solid var(--border);
-        color: var(--text);
-        font-family: inherit;
-        font-size: 12px;
-        height: 32px;
-        padding: 0 10px;
-        border-radius: 6px;
-        cursor: pointer;
-        transition:
-          border-color 0.1s,
-          background 0.1s;
-      }
-
-      .controls button {
-        width: 32px;
-        padding: 0;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .controls button:hover,
-      .controls select:hover {
-        border-color: var(--border-strong);
-      }
-      .controls button:active {
-        background: var(--faint);
-      }
-
-      .controls select {
-        padding-right: 24px;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6' fill='none' stroke='%23111' stroke-width='1.5'%3E%3Cpath d='M1 1l4 4 4-4'/%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-position: right 9px center;
-      }
-
-      .controls svg {
-        width: 14px;
-        height: 14px;
-        stroke: currentColor;
-        stroke-width: 1.75;
-        fill: none;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-      }
-
-      .month-label {
-        font-size: 13px;
-        font-weight: 500;
-        min-width: 130px;
-        text-align: center;
-        letter-spacing: -0.01em;
-      }
-
-      /* ---------- legend ---------- */
-      .legend-bar {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px 20px;
-        padding: 12px 14px;
-        margin-bottom: 16px;
-        background: #fafafa;
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        font-size: 11px;
-        align-items: center;
-      }
-
-      .legend-bar .lead {
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-        font-size: 9.5px;
-        color: var(--muted);
-        margin-right: 4px;
-      }
-
-      .legend-bar .group {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        flex-wrap: wrap;
-      }
-
-      .legend-bar .divider {
-        width: 1px;
-        height: 16px;
-        background: var(--border);
-      }
-
-      /* format chip */
-      .chip {
-        display: inline-flex;
-        align-items: center;
-        font-size: 8.5px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-        padding: 2px 6px;
-        border-radius: 3px;
-        line-height: 11px;
-        white-space: nowrap;
-      }
-
-      .chip.text {
-        background: transparent;
-        border: 1px solid var(--text);
-        color: var(--text);
-      }
-
-      .chip.visual {
-        background: var(--text);
-        border: 1px solid var(--text);
-        color: white;
-      }
-
-      .chip.cat {
-        background: #f0f0f0;
-        border: 1px solid #f0f0f0;
-        color: var(--text);
-        font-weight: 600;
-      }
-
-      /* ---------- calendar ---------- */
-      .calendar {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        gap: 1px;
-        background: var(--border);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        overflow: hidden;
-      }
-
-      .weekday {
-        background: var(--panel);
-        text-align: left;
-        font-size: 10px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        color: var(--muted);
-        padding: 10px 10px 8px;
-      }
-
-      .day {
-        background: var(--panel);
-        min-height: 110px;
-        padding: 8px 8px 10px;
-        display: flex;
-        flex-direction: column;
-        position: relative;
-      }
-
-      .day.empty {
-        background: #fafafa;
-      }
-
-      .day.today .day-number {
-        background: var(--text);
-        color: white;
-        border-radius: 50%;
-        width: 20px;
-        height: 20px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        margin-left: -3px;
-      }
-
-      .day-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 6px;
-        min-height: 20px;
-      }
-
-      .day-number {
-        font-size: 11px;
-        font-weight: 500;
-        color: var(--text);
-        font-variant-numeric: tabular-nums;
-      }
-
-      .day.empty .day-number {
-        color: var(--muted);
-      }
-
-      .day-meta {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        font-size: 9px;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        color: var(--muted);
-      }
-
-      .day-meta .mark {
-        font-weight: 600;
-        color: var(--text);
-        border: 1px solid var(--text);
-        border-radius: 3px;
-        padding: 0 4px;
-        line-height: 13px;
-        font-size: 9px;
-      }
-
-      /* ---------- tasks ---------- */
-      .task-list {
-        display: flex;
-        flex-direction: column;
-        gap: 3px;
-        flex: 1;
-      }
-
-      .task {
-        display: flex;
+      header {
         align-items: flex-start;
-        gap: 6px;
-        padding: 4px 5px;
-        border-radius: 4px;
-        cursor: pointer;
-        user-select: none;
-        transition: background 0.08s;
-        line-height: 1.3;
-        border: 1px solid transparent;
+        flex-direction: column
       }
 
-      .task:hover {
-        background: var(--faint);
+      .summary {
+        grid-template-columns: repeat(2, 1fr)
       }
+    }
+  </style>
+</head>
 
-      .task .box {
-        width: 10px;
-        height: 10px;
-        border: 1px solid var(--border-strong);
-        border-radius: 2px;
-        flex-shrink: 0;
-        margin-top: 2px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        transition:
-          background 0.1s,
-          border-color 0.1s;
-        pointer-events: none;
-      }
-
-      .task .box svg {
-        width: 7px;
-        height: 7px;
-        stroke: white;
-        stroke-width: 2.5;
-        fill: none;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        opacity: 0;
-        transition: opacity 0.1s;
-        pointer-events: none;
-      }
-
-      .task.completed .box {
-        background: var(--text);
-        border-color: var(--text);
-      }
-
-      .task.completed .box svg {
-        opacity: 1;
-      }
-
-      .task-body {
-        flex: 1;
-        min-width: 0;
-        pointer-events: none;
-      }
-
-      .task-platform {
-        font-size: 9.5px;
-        font-weight: 600;
-        color: var(--text);
-        display: block;
-        margin-bottom: 3px;
-        letter-spacing: -0.005em;
-      }
-
-      .task.completed .task-platform {
-        color: var(--done);
-      }
-
-      .task-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 3px;
-        align-items: center;
-      }
-
-      .task.completed .chip {
-        opacity: 0.5;
-      }
-
-      .task.completed .chip.text {
-        border-color: var(--done);
-        color: var(--done);
-      }
-      .task.completed .chip.visual {
-        background: var(--done);
-        border-color: var(--done);
-      }
-      .task.completed .chip.cat {
-        background: #f8f8f8;
-        color: var(--done);
-      }
-
-      /* ---------- footer ---------- */
-      .footer {
-        margin-top: 16px;
-        padding-top: 16px;
-        border-top: 1px solid var(--border);
-        font-size: 11px;
-        color: var(--muted);
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px 20px;
-        justify-content: space-between;
-      }
-
-      /* ---------- responsive ---------- */
-      @media (max-width: 860px) {
-        body {
-          padding: 20px 12px 32px;
-        }
-        .day {
-          min-height: 100px;
-          padding: 6px;
-        }
-        .legend-bar {
-          font-size: 10px;
-          padding: 10px 12px;
-        }
-        .chip {
-          font-size: 8px;
-          padding: 1px 5px;
-        }
-      }
-
-      @media (max-width: 640px) {
-        .calendar {
-          border-radius: 6px;
-        }
-        .day {
-          min-height: 72px;
-          padding: 4px;
-        }
-        .day-header {
-          margin-bottom: 4px;
-        }
-        .task {
-          padding: 3px;
-          gap: 4px;
-        }
-        .task .box {
-          margin-top: 2px;
-          width: 9px;
-          height: 9px;
-        }
-        .task-platform {
-          font-size: 9px;
-          margin-bottom: 2px;
-        }
-        .task-tags {
-          gap: 2px;
-        }
-        .chip {
-          font-size: 7px;
-          padding: 1px 4px;
-          letter-spacing: 0.04em;
-        }
-        .weekday {
-          padding: 6px 4px 4px;
-          font-size: 9px;
-        }
-        .header {
-          gap: 8px;
-        }
-        .month-label {
-          min-width: 110px;
-          font-size: 12px;
-        }
-        .legend-bar {
-          display: none;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <header class="header">
-        <div class="title">
-          content calendar <span id="monthDisplay"></span>
-        </div>
-        <div class="controls">
-          <button id="prevMonthBtn" aria-label="Previous month">
-            <svg viewBox="0 0 16 16"><path d="M10 3L5 8l5 5" /></svg>
-          </button>
-          <button id="nextMonthBtn" aria-label="Next month">
-            <svg viewBox="0 0 16 16"><path d="M6 3l5 5-5 5" /></svg>
-          </button>
-          <select id="monthSelect" aria-label="Month"></select>
-          <select id="yearSelect" aria-label="Year"></select>
-        </div>
-      </header>
-
-      <div class="legend-bar">
-        <span class="lead">format</span>
-        <span class="group">
-          <span><span class="chip text">TEXT</span> write only</span>
-          <span><span class="chip visual">CAROUSEL</span> design</span>
-          <span><span class="chip visual">REEL</span> vertical video</span>
-          <span><span class="chip visual">VIDEO</span> long form</span>
-        </span>
-        <span class="divider"></span>
-        <span class="lead">category</span>
-        <span class="group">
-          <span><span class="chip cat">SWE</span></span>
-          <span><span class="chip cat">AI</span></span>
-          <span><span class="chip cat">CAREER</span></span>
-          <span><span class="chip cat">BUILD</span></span>
-          <span><span class="chip cat">OPINION</span></span>
-          <span><span class="chip cat">TUTORIAL</span></span>
-        </span>
+<body>
+  <div class="wrap">
+    <header>
+      <h1 id="title">Content Calendar</h1>
+      <div class="controls">
+        <button id="prev">←</button>
+        <select id="month"></select>
+        <button id="next">→</button>
+        <button id="today">Today</button>
       </div>
+    </header>
 
-      <div class="calendar" id="calendarGrid"></div>
-
-      <footer class="footer">
-        <div>
-          Mon SWE · Tue Career · Wed AI · Thu Tutorial · Fri Build · Sat Opinion
-          · Sun Rest
-        </div>
-      </footer>
+    <div class="summary">
+      <div class="stat"><b id="total">0</b><span>Total tasks</span></div>
+      <div class="stat"><b id="li">0</b><span>LinkedIn</span></div>
+      <div class="stat"><b id="ig">0</b><span>Instagram</span></div>
+      <div class="stat"><b id="medium">0</b><span>Medium</span></div>
+      <div class="stat"><b id="done">0</b><span>Completed</span></div>
     </div>
 
-    <script>
-      (function () {
-        "use strict";
+    <div class="calendar-wrap">
+      <div id="calendar" class="calendar"></div>
+    </div>
 
-        // ============================================================
-        // RULES
-        // ============================================================
+    <div class="rules">
+      <h2>Content rules</h2>
+      <ul>
+        <li><b>Monday:</b> LinkedIn Software Engineering + Instagram Carousel</li>
+        <li><b>Tuesday:</b> LinkedIn Career + X short post</li>
+        <li><b>Wednesday:</b> LinkedIn AI + Instagram Reel</li>
+        <li><b>Thursday:</b> LinkedIn Tutorial + X Thread</li>
+        <li><b>Friday:</b> LinkedIn Build in Public + Instagram Reel</li>
+        <li><b>Saturday:</b> Reddit contribution + Threads discussion</li>
+        <li><b>Sunday:</b> Planning / rest</li>
+        <li><b>3rd:</b> Medium Blog #1 + LinkedIn + Instagram repurposing</li>
+        <li><b>13th:</b> Medium Blog #2 + LinkedIn + Instagram repurposing</li>
+        <li><b>23rd:</b> Medium Blog #3 + LinkedIn + Instagram repurposing</li>
+        <li><b>Every 7 days:</b> Stack Overflow — answer 2–5 useful questions</li>
+        <li><b>20th:</b> YouTube long-form video</li>
+        <li><b>26th:</b> Dev.to + Hashnode technical article</li>
+      </ul>
+    </div>
+    <div class="footer">Click a task to mark it complete. Completion is saved in your browser for each date.</div>
+  </div>
 
-        // Day of week → category
-        const DAY_TO_CATEGORY = {
-          1: "swe", // Monday
-          2: "career", // Tuesday
-          3: "ai", // Wednesday
-          4: "tutorial", // Thursday
-          5: "build", // Friday
-          6: "opinion", // Saturday
-          0: null, // Sunday = rest
-        };
+  <script>
+    const rules = {
+      0: [["Planning", "Weekly planning / rest"]],
+      1: [["LinkedIn", "Software Engineering", "Educational post"], ["Instagram", "Software Engineering", "Carousel"]],
+      2: [["LinkedIn", "Career", "Personal lesson / opinion"], ["X", "Career", "Short post"]],
+      3: [["LinkedIn", "AI", "AI / AI Engineering post"], ["Instagram", "AI", "Reel"]],
+      4: [["LinkedIn", "Technical", "Tutorial / how-to"], ["X", "Technical", "Thread"]],
+      5: [["LinkedIn", "Building in Public", "Project / build update"], ["Instagram", "Building in Public", "Reel"]],
+      6: [["Reddit", "Community", "Helpful contribution"], ["Threads", "Discussion", "Developer discussion"]]
+    };
 
-        // Category display labels
-        const CATEGORY_LABEL = {
-          swe: "SWE",
-          ai: "AI",
-          career: "CAREER",
-          build: "BUILD",
-          opinion: "OPINION",
-          tutorial: "TUTORIAL",
-          rest: "REST",
-        };
+    const special = {
+      3: [["Medium", "Career", "Blog #1"], ["LinkedIn", "Career", "Repurpose Medium #1"], ["Instagram", "Career", "Carousel/Reel from Medium #1"]],
+      13: [["Medium", "Technical", "Blog #2"], ["LinkedIn", "Technical", "Repurpose Medium #2"], ["Instagram", "Technical", "Carousel/Reel from Medium #2"]],
+      23: [["Medium", "AI / Future Tech", "Blog #3"], ["LinkedIn", "AI / Future Tech", "Repurpose Medium #3"], ["Instagram", "AI / Future Tech", "Carousel/Reel from Medium #3"]],
+      20: [["YouTube", "Tutorial", "Long-form technical video"]],
+      26: [["Dev.to", "Technical", "Technical article"], ["Hashnode", "Technical", "Technical article"]]
+    };
 
-        // Category descriptive text
-        const CATEGORY_DESC = {
-          swe: "Software engineering",
-          ai: "AI / AI engineering",
-          career: "Developer career",
-          build: "Building in public",
-          opinion: "Opinion / discussion",
-          tutorial: "Technical tutorial",
-          rest: "Planning / rest",
-        };
+    let current = new Date();
+    current.setDate(1);
 
-        // Platform → default format
-        const PLATFORM_FORMAT = {
-          linkedin: { label: "TEXT", kind: "text" },
-          x: { label: "TEXT", kind: "text" },
-          threads: { label: "TEXT", kind: "text" },
-          medium: { label: "TEXT", kind: "text" },
-          devto: { label: "TEXT", kind: "text" },
-          hashnode: { label: "TEXT", kind: "text" },
-          reddit: { label: "TEXT", kind: "text" },
-          stackoverflow: { label: "TEXT", kind: "text" },
-          instagram: { label: "CAROUSEL", kind: "visual" },
-          youtube: { label: "VIDEO", kind: "visual" },
-        };
+    function key(y, m, d, i) { return `content-${y}-${m + 1}-${d}-${i}` }
 
-        const PLATFORM_LABEL = {
-          medium: "Medium",
-          linkedin: "LinkedIn",
-          instagram: "Instagram",
-          x: "X",
-          threads: "Threads",
-          devto: "Dev.to",
-          hashnode: "Hashnode",
-          reddit: "Reddit",
-          stackoverflow: "Stack Overflow",
-          youtube: "YouTube",
-        };
+    function taskFor(date) {
+      const tasks = [...rules[date.getDay()].map(x => [...x])];
+      const day = date.getDate();
+      if (special[day]) special[day].forEach(x => tasks.push([...x]));
+      // Weekly Stack Overflow activity: every Monday, making it predictable without
+      // tying it to a particular calendar date.
+      if (date.getDay() === 1) tasks.push(["Stack Overflow", "Technical", "Answer 2–5 useful questions"]);
+      return tasks;
+    }
 
-        // ============================================================
-        // MONTH PLAN — build from rules
-        // ============================================================
-        const planCache = {};
+    function populateMonths() {
+      const select = document.getElementById("month");
+      select.innerHTML = "";
+      for (let i = -12; i <= 12; i++) {
+        const d = new Date(current.getFullYear(), current.getMonth() + i, 1);
+        const o = document.createElement("option");
+        o.value = `${d.getFullYear()}-${d.getMonth()}`;
+        o.textContent = d.toLocaleDateString(undefined, { month: "long", year: "numeric" });
+        select.appendChild(o);
+      }
+      select.value = `${current.getFullYear()}-${current.getMonth()}`;
+    }
 
-        function buildMonthPlan(year, month) {
-          const cacheKey = year + "-" + month;
-          if (planCache[cacheKey]) return planCache[cacheKey];
+    function render() {
+      populateMonths();
+      document.getElementById("title").textContent =
+        current.toLocaleDateString(undefined, { month: "long", year: "numeric" }) + " Content Calendar";
 
-          const daysInMonth = new Date(year, month + 1, 0).getDate();
-          const plan = {};
+      const cal = document.getElementById("calendar");
+      cal.innerHTML = "";
+      ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].forEach(d => {
+        const e = document.createElement("div"); e.className = "dow"; e.textContent = d; cal.appendChild(e);
+      });
 
-          for (let d = 1; d <= daysInMonth; d++) {
-            const dow = new Date(year, month, d).getDay();
-            const category = DAY_TO_CATEGORY[dow];
-            const tasks = [];
+      const first = new Date(current.getFullYear(), current.getMonth(), 1);
+      const days = new Date(current.getFullYear(), current.getMonth() + 1, 0).getDate();
+      const start = first.getDay();
 
-            // ---- weekly rhythm ----
-            if (category) {
-              // LinkedIn — every weekday
-              tasks.push({
-                platform: "linkedin",
-                format: "TEXT",
-                category: category,
-              });
+      let total = 0, li = 0, ig = 0, medium = 0, done = 0;
 
-              // Instagram — Mon, Wed, Fri
-              if (dow === 1 || dow === 3 || dow === 5) {
-                tasks.push({
-                  platform: "instagram",
-                  format: dow === 3 || dow === 5 ? "REEL" : "CAROUSEL",
-                  category: category,
-                });
-              }
+      for (let i = 0; i < 42; i++) {
+        const d = new Date(current.getFullYear(), current.getMonth(), i - start + 1);
+        const cell = document.createElement("div");
+        cell.className = "day";
+        if (d.getMonth() !== current.getMonth()) cell.classList.add("other");
+        if (d.toDateString() === new Date().toDateString()) cell.classList.add("today");
 
-              // X — Tue, Thu
-              if (dow === 2 || dow === 4) {
-                tasks.push({
-                  platform: "x",
-                  format: "TEXT",
-                  category: category,
-                });
-              }
+        const num = document.createElement("div"); num.className = "num"; num.textContent = d.getDate(); cell.appendChild(num);
 
-              // Threads — Tue, Sat
-              if (dow === 2 || dow === 6) {
-                tasks.push({
-                  platform: "threads",
-                  format: "TEXT",
-                  category: category,
-                });
-              }
-
-              // Reddit — Sat
-              if (dow === 6) {
-                tasks.push({
-                  platform: "reddit",
-                  format: "TEXT",
-                  category: category,
-                });
-              }
-            }
-
-            // ---- Sunday ----
-            if (dow === 0) {
-              tasks.push({
-                platform: "threads",
-                format: "TEXT",
-                category: "rest",
-              });
-            }
-
-            // ---- date-based ----
-            if (d === 3) {
-              tasks.unshift({
-                platform: "medium",
-                format: "TEXT",
-                category: "career",
-              });
-              tasks.push({
-                platform: "devto",
-                format: "TEXT",
-                category: "career",
-              });
-            }
-            if (d === 13) {
-              tasks.unshift({
-                platform: "medium",
-                format: "TEXT",
-                category: "tutorial",
-              });
-              tasks.push({
-                platform: "hashnode",
-                format: "TEXT",
-                category: "tutorial",
-              });
-            }
-            if (d === 23) {
-              tasks.unshift({
-                platform: "medium",
-                format: "TEXT",
-                category: "ai",
-              });
-              tasks.push({
-                platform: "linkedin",
-                format: "TEXT",
-                category: "ai",
-              });
-              tasks.push({
-                platform: "instagram",
-                format: "CAROUSEL",
-                category: "ai",
-              });
-              tasks.push({ platform: "x", format: "TEXT", category: "ai" });
-              tasks.push({ platform: "devto", format: "TEXT", category: "ai" });
-              tasks.push({
-                platform: "hashnode",
-                format: "TEXT",
-                category: "ai",
-              });
-              tasks.push({
-                platform: "reddit",
-                format: "TEXT",
-                category: "ai",
-              });
-            }
-            if (d === 20) {
-              tasks.push({
-                platform: "youtube",
-                format: "VIDEO",
-                category: "ai",
-              });
-            }
-            if (d === 27) {
-              tasks.push({
-                platform: "youtube",
-                format: "REEL",
-                category: "ai",
-              });
-            }
-            if (d === 14) {
-              tasks.push({
-                platform: "reddit",
-                format: "TEXT",
-                category: "opinion",
-              });
-            }
-            if (d === 29) {
-              tasks.push({
-                platform: "reddit",
-                format: "TEXT",
-                category: "opinion",
-              });
-            }
-            if (d === 30) {
-              tasks.push({
-                platform: "linkedin",
-                format: "TEXT",
-                category: "build",
-              });
-            }
-            if (dow === 1) {
-              tasks.push({
-                platform: "stackoverflow",
-                format: "TEXT",
-                category: "swe",
-              });
-            }
-
-            // ---- deduplicate identical platform+format+category triples ----
-            const seen = new Set();
-            plan[d] = tasks.filter(function (t) {
-              const k = t.platform + "|" + t.format + "|" + t.category;
-              if (seen.has(k)) return false;
-              seen.add(k);
-              return true;
-            });
-          }
-
-          planCache[cacheKey] = plan;
-          return plan;
-        }
-
-        // ============================================================
-        // STATE
-        // ============================================================
-        let currentYear = new Date().getFullYear();
-        let currentMonth = new Date().getMonth();
-
-        const STORAGE_KEY = "content-calendar-v6";
-
-        let checks = loadChecksFromStorage();
-
-        function loadChecksFromStorage() {
-          try {
-            return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
-          } catch (e) {
-            return {};
-          }
-        }
-
-        function persistChecks() {
-          try {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(checks));
-          } catch (e) {
-            /* ignore */
-          }
-        }
-
-        function taskKey(year, month, day, platform, format, category, index) {
-          return (
-            year +
-            "-" +
-            month +
-            "-" +
-            day +
-            "-" +
-            platform +
-            "-" +
-            format +
-            "-" +
-            category +
-            "-" +
-            index
-          );
-        }
-
-        // ============================================================
-        // RENDER
-        // ============================================================
-        const calendarGrid = document.getElementById("calendarGrid");
-        const monthDisplay = document.getElementById("monthDisplay");
-        const monthSelect = document.getElementById("monthSelect");
-        const yearSelect = document.getElementById("yearSelect");
-
-        const MONTH_NAMES = [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "August",
-          "September",
-          "October",
-          "November",
-          "December",
-        ];
-        const MONTH_SHORT = [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec",
-        ];
-
-        const CHECK_ICON =
-          '<svg viewBox="0 0 10 10"><path d="M1.5 5.2l2.2 2.2 4.8-4.8"/></svg>';
-
-        function buildSelectors() {
-          MONTH_NAMES.forEach(function (name, i) {
-            const o = document.createElement("option");
-            o.value = i;
-            o.textContent = name;
-            monthSelect.appendChild(o);
+        if (d.getMonth() === current.getMonth()) {
+          taskFor(d).forEach((t, index) => {
+            const [platform, type, desc] = t;
+            const el = document.createElement("div");
+            el.className = "task" + (platform === "Medium" ? " medium" : "");
+            const k = key(d.getFullYear(), d.getMonth(), d.getDate(), index);
+            if (localStorage.getItem(k) === "done") { el.classList.add("done"); done++ }
+            el.innerHTML = `<strong>${platform}</strong><small>${type}${desc ? " — " + desc : ""}</small>`;
+            el.onclick = () => {
+              if (localStorage.getItem(k) === "done") localStorage.removeItem(k);
+              else localStorage.setItem(k, "done");
+              render();
+            };
+            cell.appendChild(el);
+            total++;
+            if (platform === "LinkedIn") li++;
+            if (platform === "Instagram") ig++;
+            if (platform === "Medium") medium++;
           });
-          const now = new Date().getFullYear();
-          for (let y = now - 1; y <= now + 3; y++) {
-            const o = document.createElement("option");
-            o.value = y;
-            o.textContent = y;
-            yearSelect.appendChild(o);
-          }
-          monthSelect.value = currentMonth;
-          yearSelect.value = currentYear;
         }
+        cal.appendChild(cell);
+      }
 
-        function formatChipClass(fmt) {
-          if (fmt === "TEXT") return "text";
-          return "visual";
-        }
+      document.getElementById("total").textContent = total;
+      document.getElementById("li").textContent = li;
+      document.getElementById("ig").textContent = ig;
+      document.getElementById("medium").textContent = medium;
+      document.getElementById("done").textContent = done;
+    }
 
-        function renderCalendar(year, month) {
-          monthDisplay.textContent = MONTH_SHORT[month] + " " + year;
-          monthSelect.value = month;
-          yearSelect.value = year;
+    document.getElementById("prev").onclick = () => {
+      current = new Date(current.getFullYear(), current.getMonth() - 1, 1); render();
+    };
+    document.getElementById("next").onclick = () => {
+      current = new Date(current.getFullYear(), current.getMonth() + 1, 1); render();
+    };
+    document.getElementById("today").onclick = () => {
+      const d = new Date(); current = new Date(d.getFullYear(), d.getMonth(), 1); render();
+    };
+    document.getElementById("month").onchange = e => {
+      const [y, m] = e.target.value.split("-").map(Number);
+      current = new Date(y, m, 1); render();
+    };
 
-          calendarGrid.innerHTML = "";
+    render();
+  </script>
+</body>
 
-          ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].forEach(
-            function (w) {
-              const el = document.createElement("div");
-              el.className = "weekday";
-              el.textContent = w;
-              calendarGrid.appendChild(el);
-            },
-          );
-
-          const firstDow = new Date(year, month, 1).getDay();
-          const offset = (firstDow + 6) % 7;
-          const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-          for (let i = 0; i < offset; i++) {
-            const e = document.createElement("div");
-            e.className = "day empty";
-            calendarGrid.appendChild(e);
-          }
-
-          const today = new Date();
-          const isCurrentMonth =
-            today.getFullYear() === year && today.getMonth() === month;
-
-          const plan = buildMonthPlan(year, month);
-
-          for (let d = 1; d <= daysInMonth; d++) {
-            const dayDiv = document.createElement("div");
-            dayDiv.className = "day";
-            if (isCurrentMonth && today.getDate() === d)
-              dayDiv.classList.add("today");
-
-            const header = document.createElement("div");
-            header.className = "day-header";
-
-            const numSpan = document.createElement("span");
-            numSpan.className = "day-number";
-            numSpan.textContent = d;
-            header.appendChild(numSpan);
-
-            const marks = [];
-            if (d === 3 || d === 13 || d === 23) marks.push("MED");
-            if (d === 20 || d === 27) marks.push("YT");
-            if (d === 26) marks.push("DEV");
-
-            if (marks.length) {
-              const meta = document.createElement("span");
-              meta.className = "day-meta";
-              marks.forEach(function (m) {
-                const badge = document.createElement("span");
-                badge.className = "mark";
-                badge.textContent = m;
-                meta.appendChild(badge);
-              });
-              header.appendChild(meta);
-            }
-
-            dayDiv.appendChild(header);
-
-            const taskList = document.createElement("div");
-            taskList.className = "task-list";
-
-            const tasks = plan[d] || [];
-
-            tasks.forEach(function (task, idx) {
-              const key = taskKey(
-                year,
-                month,
-                d,
-                task.platform,
-                task.format,
-                task.category,
-                idx,
-              );
-              const done = !!checks[key];
-
-              const taskEl = document.createElement("div");
-              taskEl.className = "task" + (done ? " completed" : "");
-              taskEl.dataset.key = key;
-
-              const box = document.createElement("span");
-              box.className = "box";
-              box.innerHTML = CHECK_ICON;
-
-              const body = document.createElement("div");
-              body.className = "task-body";
-
-              // platform name
-              const platformSpan = document.createElement("span");
-              platformSpan.className = "task-platform";
-              platformSpan.textContent =
-                PLATFORM_LABEL[task.platform] || task.platform;
-
-              // format + category chips
-              const tags = document.createElement("div");
-              tags.className = "task-tags";
-
-              const fmtChip = document.createElement("span");
-              fmtChip.className = "chip " + formatChipClass(task.format);
-              fmtChip.textContent = task.format;
-
-              const catChip = document.createElement("span");
-              catChip.className = "chip cat";
-              catChip.textContent =
-                CATEGORY_LABEL[task.category] || task.category;
-
-              tags.appendChild(fmtChip);
-              tags.appendChild(catChip);
-
-              body.appendChild(platformSpan);
-              body.appendChild(tags);
-
-              taskEl.appendChild(box);
-              taskEl.appendChild(body);
-
-              // title attribute for hover tooltip with full description
-              taskEl.title =
-                PLATFORM_LABEL[task.platform] +
-                " · " +
-                task.format +
-                " · " +
-                (CATEGORY_DESC[task.category] || task.category);
-
-              taskEl.addEventListener("click", function (e) {
-                e.stopPropagation();
-                e.preventDefault();
-
-                if (checks[key]) {
-                  delete checks[key];
-                  taskEl.classList.remove("completed");
-                } else {
-                  checks[key] = true;
-                  taskEl.classList.add("completed");
-                }
-                persistChecks();
-              });
-
-              taskList.appendChild(taskEl);
-            });
-
-            dayDiv.appendChild(taskList);
-            calendarGrid.appendChild(dayDiv);
-          }
-
-          const totalCells = offset + daysInMonth;
-          const trail = (7 - (totalCells % 7)) % 7;
-          for (let i = 0; i < trail; i++) {
-            const e = document.createElement("div");
-            e.className = "day empty";
-            calendarGrid.appendChild(e);
-          }
-        }
-
-        // ============================================================
-        // NAVIGATION
-        // ============================================================
-        document
-          .getElementById("prevMonthBtn")
-          .addEventListener("click", function () {
-            currentMonth--;
-            if (currentMonth < 0) {
-              currentMonth = 11;
-              currentYear--;
-            }
-            renderCalendar(currentYear, currentMonth);
-          });
-
-        document
-          .getElementById("nextMonthBtn")
-          .addEventListener("click", function () {
-            currentMonth++;
-            if (currentMonth > 11) {
-              currentMonth = 0;
-              currentYear++;
-            }
-            renderCalendar(currentYear, currentMonth);
-          });
-
-        monthSelect.addEventListener("change", function (e) {
-          currentMonth = parseInt(e.target.value, 10);
-          renderCalendar(currentYear, currentMonth);
-        });
-
-        yearSelect.addEventListener("change", function (e) {
-          currentYear = parseInt(e.target.value, 10);
-          renderCalendar(currentYear, currentMonth);
-        });
-
-        // ============================================================
-        // INIT
-        // ============================================================
-        buildSelectors();
-        renderCalendar(currentYear, currentMonth);
-      })();
-    </script>
-  </body>
 </html>
