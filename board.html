@@ -249,36 +249,49 @@
   </div>
 
   <script>
+    // ----- CONTENT PLAN (aligned with 6 pillars & flywheel) -----
     const rules = {
       0: [["Planning", "Weekly planning / rest"]],
-      1: [["LinkedIn", "Software Engineering", "Educational post"], ["Instagram", "Software Engineering", "Carousel"]],
-      2: [["LinkedIn", "Career", "Personal lesson / opinion"], ["X", "Career", "Short post"]],
-      3: [["LinkedIn", "AI", "AI / AI Engineering post"], ["Instagram", "AI", "Reel"]],
-      4: [["LinkedIn", "Technical", "Tutorial / how-to"], ["X", "Technical", "Thread"]],
-      5: [["LinkedIn", "Building in Public", "Project / build update"], ["Instagram", "Building in Public", "Reel"]],
-      6: [["Reddit", "Community", "Helpful contribution"], ["Threads", "Discussion", "Developer discussion"]]
+      1: [["LinkedIn", "Software Engineering", "Educational post"],
+      ["GitHub", "Software Engineering", "Commit / improve a project"]],
+      2: [["LinkedIn", "Developer Career", "Personal lesson / opinion"],
+      ["X (Twitter)", "Developer Career", "Short post"]],
+      3: [["LinkedIn", "AI Engineering", "AI / AI Engineering post"],
+      ["Instagram", "AI Engineering", "Reel"]],
+      4: [["LinkedIn", "Tutorial / Technical", "Tutorial / how-to"],
+      ["X (Twitter)", "Tutorial / Technical", "Thread"]],
+      5: [["LinkedIn", "Building in Public", "Project / build update"],
+      ["Instagram", "Building in Public", "Reel"]],
+      6: [["Reddit", "Opinions / Community", "Helpful contribution"],
+      ["Discord / Slack communities", "Opinions / Discussion", "Developer discussion"]]
     };
 
+    // Special dates (3 Medium-equivalent blogs + YouTube + Dev.to / Hashnode)
     const special = {
-      3: [["Medium", "Career", "Blog #1"], ["LinkedIn", "Career", "Repurpose Medium #1"], ["Instagram", "Career", "Carousel/Reel from Medium #1"]],
-      13: [["Medium", "Technical", "Blog #2"], ["LinkedIn", "Technical", "Repurpose Medium #2"], ["Instagram", "Technical", "Carousel/Reel from Medium #2"]],
-      23: [["Medium", "AI / Future Tech", "Blog #3"], ["LinkedIn", "AI / Future Tech", "Repurpose Medium #3"], ["Instagram", "AI / Future Tech", "Carousel/Reel from Medium #3"]],
+      3: [["Dev.to / Hashnode", "Career", "Blog #1"],
+      ["LinkedIn", "Career", "Repurpose Blog #1"],
+      ["Instagram", "Career", "Carousel/Reel from Blog #1"]],
+      13: [["Dev.to / Hashnode", "Technical", "Blog #2"],
+      ["LinkedIn", "Technical", "Repurpose Blog #2"],
+      ["Instagram", "Technical", "Carousel/Reel from Blog #2"]],
+      23: [["Dev.to / Hashnode", "AI / Future Tech", "Blog #3"],
+      ["LinkedIn", "AI / Future Tech", "Repurpose Blog #3"],
+      ["Instagram", "AI / Future Tech", "Carousel/Reel from Blog #3"]],
       20: [["YouTube", "Tutorial", "Long-form technical video"]],
-      26: [["Dev.to", "Technical", "Technical article"], ["Hashnode", "Technical", "Technical article"]]
+      26: [["Dev.to / Hashnode", "Technical", "Technical article"]]
     };
 
     let current = new Date();
     current.setDate(1);
 
-    function key(y, m, d, i) { return `content-${y}-${m + 1}-${d}-${i}` }
+    function key(y, m, d, i) { return `content-${y}-${m + 1}-${d}-${i}`; }
 
     function taskFor(date) {
       const tasks = [...rules[date.getDay()].map(x => [...x])];
       const day = date.getDate();
       if (special[day]) special[day].forEach(x => tasks.push([...x]));
-      // Weekly Stack Overflow activity: every Monday, making it predictable without
-      // tying it to a particular calendar date.
-      if (date.getDay() === 1) tasks.push(["Stack Overflow", "Technical", "Answer 2–5 useful questions"]);
+      // Weekly Stack Overflow activity: every Monday
+      if (date.getDay() === 1) tasks.push(["GitHub", "Pillar 6 · Community", "Answer 2–5 useful questions"]);
       return tasks;
     }
 
@@ -298,7 +311,7 @@
     function render() {
       populateMonths();
       document.getElementById("title").textContent =
-        current.toLocaleDateString(undefined, { month: "long", year: "numeric" }) + " Content Calendar";
+        current.toLocaleDateString(undefined, { month: "long", year: "numeric" }) + " · Content Calendar";
 
       const cal = document.getElementById("calendar");
       cal.innerHTML = "";
@@ -310,7 +323,7 @@
       const days = new Date(current.getFullYear(), current.getMonth() + 1, 0).getDate();
       const start = first.getDay();
 
-      let total = 0, li = 0, ig = 0, medium = 0, done = 0;
+      let total = 0, li = 0, ig = 0, devto = 0, done = 0;
 
       for (let i = 0; i < 42; i++) {
         const d = new Date(current.getFullYear(), current.getMonth(), i - start + 1);
@@ -325,11 +338,12 @@
           taskFor(d).forEach((t, index) => {
             const [platform, type, desc] = t;
             const el = document.createElement("div");
-            el.className = "task" + (platform === "Medium" ? " medium" : "");
+            el.className = "task" + (platform === "Dev.to / Hashnode" ? " medium" : "");
             const k = key(d.getFullYear(), d.getMonth(), d.getDate(), index);
-            if (localStorage.getItem(k) === "done") { el.classList.add("done"); done++ }
+            if (localStorage.getItem(k) === "done") { el.classList.add("done"); done++; }
             el.innerHTML = `<strong>${platform}</strong><small>${type}${desc ? " — " + desc : ""}</small>`;
-            el.onclick = () => {
+            el.onclick = (e) => {
+              e.stopPropagation();
               if (localStorage.getItem(k) === "done") localStorage.removeItem(k);
               else localStorage.setItem(k, "done");
               render();
@@ -338,7 +352,7 @@
             total++;
             if (platform === "LinkedIn") li++;
             if (platform === "Instagram") ig++;
-            if (platform === "Medium") medium++;
+            if (platform === "Dev.to / Hashnode") devto++;
           });
         }
         cal.appendChild(cell);
@@ -347,7 +361,7 @@
       document.getElementById("total").textContent = total;
       document.getElementById("li").textContent = li;
       document.getElementById("ig").textContent = ig;
-      document.getElementById("medium").textContent = medium;
+      document.getElementById("medium").textContent = devto;
       document.getElementById("done").textContent = done;
     }
 
